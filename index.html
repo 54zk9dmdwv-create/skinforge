@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SKINFORGE — Gaming Marketplace</title>
+<style>
+:root{--bg:#07070b;--panel:#111119;--panel2:#171722;--line:#28283a;--text:#f4f4f7;--muted:#9696a8;--accent:#8b5cf6;--accent2:#22d3ee;--danger:#fb7185}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 20% -10%,#292052 0,#07070b 35%),var(--bg);color:var(--text);font:15px Inter,system-ui,sans-serif}
+button,input,select{font:inherit}button{cursor:pointer;border:0}.wrap{max-width:1280px;margin:auto;padding:0 22px}
+header{height:72px;border-bottom:1px solid #1c1c28;background:#07070bdd;backdrop-filter:blur(14px);position:sticky;top:0;z-index:5}
+.nav{height:100%;display:flex;align-items:center;gap:24px}.logo{font-weight:900;font-size:22px;letter-spacing:.12em}.logo b{color:var(--accent)}
+.nav a{color:var(--muted);text-decoration:none}.spacer{flex:1}.btn{padding:11px 16px;border-radius:10px;background:var(--panel2);color:white;border:1px solid var(--line)}.primary{background:linear-gradient(135deg,var(--accent),#6d28d9);border:0}
+.hero{padding:70px 0 38px;display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center}.hero h1{font-size:clamp(42px,7vw,76px);line-height:.95;margin:0 0 20px}.hero h1 span{color:var(--accent2)}.hero p{color:var(--muted);font-size:18px;max-width:650px;line-height:1.6}.hero-card{min-height:280px;border:1px solid var(--line);border-radius:24px;background:linear-gradient(145deg,#171525,#0d0d13);padding:25px;box-shadow:0 20px 80px #0008}.chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px}.chip{padding:8px 12px;border:1px solid var(--line);border-radius:999px;color:#cfcfe0;background:#0d0d14}
+.toolbar{display:flex;gap:10px;align-items:center;margin:25px 0;flex-wrap:wrap}.search{flex:1;min-width:230px;background:var(--panel);border:1px solid var(--line);color:white;padding:13px 15px;border-radius:12px}.select{background:var(--panel);color:white;border:1px solid var(--line);padding:13px;border-radius:12px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.card{background:var(--panel);border:1px solid var(--line);border-radius:17px;overflow:hidden;transition:.18s}.card:hover{transform:translateY(-3px);border-color:#494968}.pic{aspect-ratio:16/10;background:#09090d;overflow:hidden}.pic img{width:100%;height:100%;object-fit:cover}.body{padding:15px}.game{font-size:12px;color:var(--accent2)}.name{font-weight:700;margin:5px 0 12px}.meta{display:flex;justify-content:space-between;color:var(--muted);font-size:12px}.price{font-size:20px;font-weight:900;margin-top:12px}.add{width:100%;margin-top:12px;padding:11px;border-radius:10px;background:#24243a;color:white}.empty{padding:50px;text-align:center;color:var(--muted);grid-column:1/-1}
+.drawer{position:fixed;right:0;top:0;height:100%;width:min(430px,100%);background:#0d0d13;border-left:1px solid var(--line);z-index:20;padding:22px;transform:translateX(105%);transition:.2s;overflow:auto}.drawer.open{transform:none}.item{display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--line)}.overlay{display:none;position:fixed;inset:0;background:#0008;z-index:19}.overlay.open{display:block}.modal{display:none;position:fixed;inset:0;z-index:30;place-items:center;background:#0009}.modal.open{display:grid}.modalbox{width:min(440px,92%);background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px}.modalbox input{width:100%;margin:8px 0;padding:12px;background:#09090d;color:white;border:1px solid var(--line);border-radius:10px}.notice{padding:12px;border-radius:10px;background:#201a08;color:#f4d88c;margin-top:12px;font-size:13px}
+footer{padding:60px 0;color:var(--muted);border-top:1px solid var(--line);margin-top:70px}
+@media(max-width:950px){.grid{grid-template-columns:repeat(3,1fr)}.hero{grid-template-columns:1fr}}
+@media(max-width:680px){.grid{grid-template-columns:repeat(2,1fr)}.nav a{display:none}.hero{padding-top:40px}.hero-card{display:none}}
+</style>
+</head>
+<body>
+<header><div class="wrap nav"><div class="logo">SKIN<span>FORGE</span></div><a href="#catalog">Каталог</a><a href="#games">Игры</a><div class="spacer"></div><button class="btn" id="loginBtn">Войти</button><button class="btn primary" id="cartBtn">Корзина <b id="count">0</b></button></div></header>
+<main class="wrap">
+<section class="hero"><div><div class="chip" style="display:inline-block">NEXT-GEN GAMING MARKETPLACE</div><h1>Игровые предметы.<br><span>Без лишнего.</span></h1><p>Единый каталог игровых предметов с быстрым поиском, аккаунтом, заказами и подготовленной криптооплатой.</p><div class="chips"><span class="chip">CS2</span><span class="chip">Dota 2</span><span class="chip">Rust</span><span class="chip">PUBG</span><span class="chip">Fortnite</span><span class="chip">Apex</span><span class="chip">R6</span><span class="chip">COD</span></div></div><div class="hero-card"><h2>SKINFORGE</h2><p>Масштабируемая база PostgreSQL, Redis и API. Каталог можно расширять до миллионов записей без изменения интерфейса.</p><div class="notice">Live-оплата включается только после настройки платёжного провайдера и проверки требований к вашему бизнесу.</div></div></section>
+<section id="catalog"><div class="toolbar"><input id="q" class="search" placeholder="Поиск предметов..."><select id="game" class="select"><option value="">Все игры</option></select><select id="sort" class="select"><option value="popular">Популярные</option><option value="price_asc">Сначала дешевле</option><option value="price_desc">Сначала дороже</option><option value="name">По названию</option></select></div><div id="grid" class="grid"></div></section>
+</main>
+<div class="overlay" id="overlay"></div><aside class="drawer" id="drawer"><div style="display:flex;justify-content:space-between;align-items:center"><h2>Корзина</h2><button class="btn" id="closeCart">Закрыть</button></div><div id="cart"></div><h3 id="total">Итого: $0.00</h3><button class="btn primary" style="width:100%" id="checkout">Оформить заказ</button><div class="notice">В DEMO режиме платёж не списывается.</div></aside>
+<div class="modal" id="modal"><div class="modalbox"><div style="display:flex;justify-content:space-between"><h2 id="modalTitle">Вход</h2><button class="btn" id="closeModal">×</button></div><input id="email" type="email" placeholder="Email"><input id="password" type="password" placeholder="Пароль (8+ символов)"><button class="btn primary" style="width:100%;margin-top:10px" id="submitAuth">Войти</button><button class="btn" style="width:100%;margin-top:8px" id="switchAuth">Создать аккаунт</button><p id="authMsg" style="color:#aaa"></p></div></div>
+<footer><div class="wrap">SKINFORGE © 2026 — Gaming Marketplace MVP. BTC · ETH · USDT · SOL · USDC</div></footer>
+<script>
+const $=s=>document.querySelector(s);
+let token=localStorage.getItem("sf_token")||"", products=[], cart=[];
+const money=c=>"$"+(c/100).toFixed(2);
+async function api(url,opt={}){const h={"Content-Type":"application/json",...(opt.headers||{})};if(token)h.Authorization="Bearer "+token;const r=await fetch(url,{...opt,headers:h});const d=await r.json().catch(()=>({}));if(!r.ok)throw Error(d.error||"Ошибка");return d}
+async function games(){const g=await api("/api/games");for(const x of g){const o=document.createElement("option");o.value=x.game;o.textContent=x.game;$("#game").append(o)}}
+async function load(){const p=new URLSearchParams({q:$("#q").value,game:$("#game").value,sort:$("#sort").value});const d=await api("/api/products?"+p);products=d.items;$("#grid").innerHTML=products.length?products.map(x=>`<article class="card"><div class="pic"><img src="${x.image||"https://placehold.co/640x400"}"></div><div class="body"><div class="game">${x.game}</div><div class="name">${x.name}</div><div class="meta"><span>${x.rarity}</span><span>IN STOCK</span></div><div class="price">${money(x.price_cents)}</div><button class="add" onclick="add('${x.id}')">В корзину</button></div></article>`).join(""):`<div class="empty">Ничего не найдено</div>`}
+function add(id){const p=products.find(x=>x.id===id);if(p&&!cart.some(x=>x.id===id))cart.push(p);renderCart()}
+function renderCart(){$("#count").textContent=cart.length;$("#cart").innerHTML=cart.length?cart.map(x=>`<div class="item"><span>${x.name}<br><small>${x.game}</small></span><b>${money(x.price_cents)}</b></div>`).join(""):"<p style='color:#999'>Корзина пуста</p>";$("#total").textContent="Итого: "+money(cart.reduce((s,x)=>s+x.price_cents,0))}
+function openCart(){ $("#drawer").classList.add("open");$("#overlay").classList.add("open")}
+function closeCart(){$("#drawer").classList.remove("open");$("#overlay").classList.remove("open")}
+$("#cartBtn").onclick=openCart;$("#closeCart").onclick=closeCart;$("#overlay").onclick=closeCart;
+let register=false;
+$("#loginBtn").onclick=()=>{$("#modalTitle").textContent=register?"Регистрация":"Вход";$("#modal").classList.add("open")}
+$("#closeModal").onclick=()=>$("#modal").classList.remove("open");
+$("#switchAuth").onclick=()=>{register=!register;$("#modalTitle").textContent=register?"Регистрация":"Вход";$("#submitAuth").textContent=register?"Создать аккаунт":"Войти";$("#switchAuth").textContent=register?"У меня уже есть аккаунт":"Создать аккаунт"}
+$("#submitAuth").onclick=async()=>{try{const d=await api(register?"/api/register":"/api/login",{method:"POST",body:JSON.stringify({email:$("#email").value,password:$("#password").value})});token=d.token;localStorage.setItem("sf_token",token);$("#authMsg").textContent="Готово";$("#modal").classList.remove("open");$("#loginBtn").textContent="Аккаунт"}catch(e){$("#authMsg").textContent=e.message}}
+$("#checkout").onclick=async()=>{if(!token){closeCart();$("#modal").classList.add("open");$("#authMsg").textContent="Сначала войдите или создайте аккаунт";return}if(!cart.length)return;try{const d=await api("/api/orders",{method:"POST",body:JSON.stringify({items:cart.map(x=>x.id)})});alert("Заказ создан: "+d.order.id+"\nРежим оплаты: "+d.payment.mode);cart=[];renderCart();closeCart()}catch(e){alert(e.message)}};
+let timer;$("#q").oninput=()=>{clearTimeout(timer);timer=setTimeout(load,250)};$("#game").onchange=load;$("#sort").onchange=load;
+games().then(load).catch(e=>alert(e.message));renderCart();
+</script>
+</body></html>
