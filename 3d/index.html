@@ -12,7 +12,7 @@
 <canvas id="view" aria-label="3D-арена SkinForge"></canvas>
 <div id="loading">Загружаем трёхмерную арену…<span id="error"></span></div>
 <div id="hud">
-<header><div class="logo">⚔️ SKIN<b>FORGE</b> <span style="font-size:10px;color:#d6c0ff">3D</span></div><div class="pill">ПРОТОТИП 2.0</div></header>
+<header><div class="logo">⚔️ SKIN<b>FORGE</b> <span style="font-size:10px;color:#d6c0ff">3D</span></div><div class="pill">ПРОТОТИП 2.0.1</div></header>
 <div id="stats"><div class="stat"><label><span>🛡️ Герой</span><span id="heroHp">100 HP</span></label><div class="track"><div id="heroBar" class="fill"></div></div></div><div class="stat"><label><span>🤖 Страж</span><span id="enemyHp">100 HP</span></label><div class="track"><div id="enemyBar" class="fill enemy"></div></div></div></div>
 <div id="hint">Джойстик — движение · Удар — атака вблизи · Рывок — уклонение</div>
 <div id="message" aria-live="polite"></div>
@@ -77,7 +77,7 @@ $('attack').addEventListener('pointerdown',e=>{e.preventDefault();if(!playing)re
 $('dodge').addEventListener('pointerdown',e=>{e.preventDefault();if(!playing)return;const now=performance.now();if(now-lastDodge<1800)return;lastDodge=now;dodgeUntil=now+560;const x=stickX,z=stickY;const len=Math.hypot(x,z)||1;const dx=len>0.05?x/len:1,dz=len>0.05?z/len:0;hero.root.position.x=THREE.MathUtils.clamp(hero.root.position.x+dx*2.6,-14,14);hero.root.position.z=THREE.MathUtils.clamp(hero.root.position.z+dz*2.6,-14,14);say('УКЛОНЕНИЕ')});
 function tick(now){requestAnimationFrame(tick);const dt=Math.min(.05,(now-(tick.last||now))/1000);tick.last=now;
  if(playing){const hx=hero.root.position.x,hz=hero.root.position.z;const moving=Math.hypot(stickX,stickY)>.08;
-  if(moving){const speed=6.1;hero.root.position.x=THREE.MathUtils.clamp(hx+stickX*speed*dt,-15.2,15.2);hero.root.position.z=THREE.MathUtils.clamp(hz+stickY*speed*dt,-15.2,15.2);hero.root.rotation.y=Math.atan2(-stickX,-stickY);}
+  if(moving){const speed=6.1;hero.root.position.x=THREE.MathUtils.clamp(hx+stickX*speed*dt,-15.2,15.2);hero.root.position.z=THREE.MathUtils.clamp(hz+stickY*speed*dt,-15.2,15.2);hero.root.rotation.y=Math.atan2(stickX,stickY);}
   else{const dx=enemy.root.position.x-hx,dz=enemy.root.position.z-hz;hero.root.rotation.y=THREE.MathUtils.lerp(hero.root.rotation.y,Math.atan2(dx,dz),.06)}
   const dx=hero.root.position.x-enemy.root.position.x,dz=hero.root.position.z-enemy.root.position.z,dist=Math.hypot(dx,dz);
   enemy.root.rotation.y=Math.atan2(dx,dz);
