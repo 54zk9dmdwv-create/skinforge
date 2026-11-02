@@ -2,10 +2,20 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover"><meta name="theme-color" content="#090d20">
-<title>SkinForge 2.3.1 — Movement & Collision</title>
+<title>SkinForge 3D v2.4 — Explorer</title>
 <style>
 :root{color-scheme:dark;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#080d1c;color:#f4efff;overscroll-behavior:none}button{font:inherit;touch-action:none;-webkit-tap-highlight-color:transparent}#view{position:fixed;inset:0;display:block;width:100%;height:100%;touch-action:none}#hud{position:fixed;inset:0;pointer-events:none;z-index:3}header{position:absolute;left:14px;top:calc(12px + env(safe-area-inset-top));right:14px;display:flex;justify-content:space-between;align-items:center;gap:10px}.logo{font-weight:950;letter-spacing:.12em;text-shadow:0 2px 18px #000;font-size:clamp(15px,4vw,22px)}.logo b{color:#ac88ff}.pill{padding:8px 12px;border:1px solid #7867a1;border-radius:30px;background:#1b1a36cc;font-size:12px;backdrop-filter:blur(12px)}#stats{position:absolute;left:12px;right:12px;top:calc(60px + env(safe-area-inset-top));display:grid;grid-template-columns:1fr 1fr;gap:9px}.stat{padding:10px;background:#141329cb;border:1px solid #65547f;border-radius:14px;backdrop-filter:blur(10px)}.stat label{display:flex;justify-content:space-between;font-weight:750;font-size:12px;gap:6px}.track{margin-top:7px;background:#322a49;height:8px;border-radius:20px;overflow:hidden}.fill{height:100%;width:100%;background:linear-gradient(90deg,#16bda2,#8cfcab);transition:width .13s}.fill.enemy{background:linear-gradient(90deg,#e13d6f,#ff9e75)}#hint{position:absolute;top:calc(151px + env(safe-area-inset-top));left:50%;transform:translateX(-50%);width:min(94vw,440px);text-align:center;color:#e0d3ff;font-size:12px;text-shadow:0 1px 8px #0008}#message{position:absolute;left:50%;top:43%;transform:translate(-50%,-50%);font-size:26px;font-weight:950;text-shadow:0 0 15px #000,0 0 26px #955eff;opacity:0;transition:opacity .12s;text-align:center;min-width:220px}#message.show{opacity:1}#joystick{pointer-events:auto;position:absolute;left:20px;bottom:calc(28px + env(safe-area-inset-bottom));width:138px;height:138px;border-radius:50%;background:#241c4b88;border:2px solid #a78af277;box-shadow:0 0 35px #3922a855, inset 0 0 25px #c8acff10;touch-action:none}#stick{position:absolute;left:50%;top:50%;width:66px;height:66px;border-radius:50%;transform:translate(-50%,-50%);background:radial-gradient(circle at 35% 30%,#b696ff,#653ec2);border:2px solid #dac4ff;box-shadow:0 0 19px #9874ff99;pointer-events:none}#buttons{position:absolute;right:10px;bottom:calc(32px + env(safe-area-inset-bottom));display:flex;gap:7px;align-items:end;pointer-events:auto}.action{width:66px;height:66px;border:1.5px solid #ba97ff;border-radius:50%;color:#fff;background:linear-gradient(155deg,#7c4fe3,#3d276e);box-shadow:0 7px 25px #0006,0 0 19px #a577f34a;display:grid;place-content:center;text-align:center;font-weight:800;font-size:26px;user-select:none}.action small{font-size:11px;font-weight:650;margin-top:3px}.action:active,.action.pressed{filter:brightness(1.4);transform:scale(.95)}#dodge{width:59px;height:59px;background:#252b61;border-color:#74b8f6}#guard{width:59px;height:59px;background:#19474f;border-color:#6ee6dc}#guard.held{box-shadow:0 0 24px #71fce7;background:#20746b}#start{position:absolute;top:calc(185px + env(safe-area-inset-top));left:50%;transform:translateX(-50%);pointer-events:auto;border:1px solid #886cc6;color:white;background:#262044dd;border-radius:16px;padding:9px 16px;font-weight:750;font-size:12px}#overlay{position:fixed;inset:0;background:#060817dc;z-index:9;display:grid;place-items:center;padding:22px;backdrop-filter:blur(9px)}#overlay[hidden]{display:none}#modal{width:min(100%,390px);padding:25px 20px;border-radius:26px;border:1px solid #a889e7;background:linear-gradient(150deg,#35245c,#14152c);box-shadow:0 0 60px #733ff044;text-align:center}#modal h1{margin:8px 0;font-size:29px}#modal p{color:#c6b9e0;line-height:1.5}#again{background:linear-gradient(90deg,#814ae1,#ae50e0);color:white;border:0;padding:15px;border-radius:14px;width:100%;font-weight:850}#loading{position:fixed;inset:0;background:#0b0b22;display:grid;place-items:center;z-index:11;font-size:16px;padding:25px;text-align:center}#loading[hidden]{display:none}#error{display:block;color:#ffb1c5;font-size:12px;margin-top:12px}#combatInfo{position:absolute;left:50%;top:calc(176px + env(safe-area-inset-top));transform:translateX(-50%);display:flex;gap:8px;justify-content:center;white-space:nowrap;font-size:10px;font-weight:800;letter-spacing:.02em;text-shadow:0 2px 8px #000;pointer-events:none}#combatInfo span{padding:6px 8px;border:1px solid #776e9a;background:#17162dcc;border-radius:12px}#combatInfo .danger{border-color:#ff6273;color:#ffc3cb;background:#60202de0;animation:warnpulse .3s infinite alternate}@keyframes warnpulse{to{transform:scale(1.055);filter:brightness(1.35)}}#footer{pointer-events:none;position:absolute;bottom:calc(181px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);font-size:11px;color:#c8c1df99;white-space:nowrap}@media(max-width:375px){#joystick{width:120px;height:120px;left:12px}#buttons{right:9px;gap:8px}.action{width:58px;height:58px}#dodge,#guard{width:52px;height:52px}#stats{top:calc(56px + env(safe-area-inset-top))}#hint{top:calc(140px + env(safe-area-inset-top));font-size:11px}#start{top:calc(181px + env(safe-area-inset-top))}}@media(max-height:680px){#hint{display:none}#start{top:calc(135px + env(safe-area-inset-top))}#combatInfo{top:calc(125px + env(safe-area-inset-top));font-size:9px}#footer{display:none}}
 #quest{position:absolute;left:12px;top:calc(132px + env(safe-area-inset-top));width:calc(100% - 24px);pointer-events:none;color:#e7fffd;text-align:center;font-size:12px;font-weight:750;text-shadow:0 2px 8px #000}#interact{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(190px + env(safe-area-inset-bottom));pointer-events:auto;display:none;background:#0c6562e8;border:1px solid #70ffec;color:#fff;border-radius:15px;padding:12px;white-space:nowrap;font-weight:850}#interact.visible{display:block}#hint{display:none}#combatInfo{top:calc(164px + env(safe-area-inset-top))}#start{top:calc(192px + env(safe-area-inset-top))}#footer{display:none}@media(max-height:700px){#quest{top:calc(125px + env(safe-area-inset-top))}#start{top:calc(168px + env(safe-area-inset-top))}#combatInfo{top:calc(153px + env(safe-area-inset-top))}#interact{bottom:calc(150px + env(safe-area-inset-bottom))}}
+
+/* Explorer 2.4 — compact map, uses no 3D render pass */
+#minimap{position:absolute;right:12px;top:calc(211px + env(safe-area-inset-top));width:150px;border:1px solid #83a6d780;border-radius:15px;overflow:hidden;background:#0e1730e8;box-shadow:0 5px 24px #040818a6;backdrop-filter:blur(8px);pointer-events:auto;z-index:4}
+#mapToggle{display:flex;justify-content:space-between;align-items:center;gap:7px;width:100%;height:29px;border:0;background:#1c2848;color:#eaf1ff;font-size:11px;font-weight:800;padding:4px 9px;text-align:left;touch-action:manipulation}
+#mapCanvas{display:block;width:148px;height:148px;background:#101b2c;touch-action:manipulation}
+#minimap.minimized{width:96px}#minimap.minimized #mapCanvas{display:none}
+#minimap.minimized #mapToggle{height:31px}
+#minimap small{font-size:9px;color:#b4d6f7;font-weight:500}
+@media(max-width:375px){#minimap{top:calc(205px + env(safe-area-inset-top));width:127px}#mapCanvas{width:125px;height:125px}}
+@media(max-height:690px){#minimap{top:calc(153px + env(safe-area-inset-top));width:116px}#mapCanvas{width:114px;height:114px}#mapToggle{font-size:10px}}
 </style>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js"}}</script>
 </head>
@@ -13,14 +23,14 @@
 <canvas id="view" aria-label="3D-арена SkinForge"></canvas>
 <div id="loading">Загружаем трёхмерную арену…<span id="error"></span></div>
 <div id="hud">
-<header><div class="logo">⚔️ SKIN<b>FORGE</b> <span style="font-size:10px;color:#d6c0ff">3D</span></div><div class="pill">WORLD FIX 2.3.1</div></header>
+<header><div class="logo">⚔️ SKIN<b>FORGE</b> <span style="font-size:10px;color:#d6c0ff">3D</span></div><div class="pill">EXPLORER 2.4</div></header>
 <div id="stats"><div class="stat"><label><span>🛡️ Герой</span><span id="heroHp">100 HP</span></label><div class="track"><div id="heroBar" class="fill"></div></div></div><div class="stat"><label><span>🤖 <span id="enemyType">Патрульный</span></span><span id="enemyHp">100 HP</span></label><div class="track"><div id="enemyBar" class="fill enemy"></div></div></div></div>
 <div id="hint">🌍 Найди терминал, активируй его, победи трёх роботов</div>
-<div id="message" aria-live="polite"></div><div id="combatInfo"><span id="comboInfo">КОМБО 0/3</span><span id="enemyIntent">РОБОТ: НАБЛЮДАЕТ</span></div>
+<aside id="minimap" aria-label="Мини-карта"><button id="mapToggle" type="button">🧭 КАРТА <small>−</small></button><canvas id="mapCanvas" width="256" height="256" aria-label="Карта зданий, робота и терминала"></canvas></aside><div id="message" aria-live="polite"></div><div id="combatInfo"><span id="comboInfo">КОМБО 0/3</span><span id="enemyIntent">РОБОТ: НАБЛЮДАЕТ</span></div>
 <button id="start" type="button">↻ Перезапуск задания</button><div id="quest">🎯 Терминал: не активирован · Роботы: 0/3</div><button id="interact" type="button">✦ Активировать терминал</button>
 <div id="joystick" aria-label="Джойстик управления"><div id="stick"></div></div>
 <div id="buttons"><button id="guard" class="action" type="button">🛡️<small>Блок</small></button><button id="dodge" class="action" type="button">💨<small>Рывок</small></button><button id="attack" class="action" type="button">⚔️<small>Удар</small></button></div>
-<div id="footer">SKINFORGE 3D · Анимация движения и камеры</div>
+<div id="footer">SKINFORGE 3D · Камера и мини-карта</div>
 </div>
 <div id="overlay" hidden><div id="modal"><div style="font-size:60px" id="resultIcon">🏆</div><h1 id="resultTitle">Победа!</h1><p id="resultText"></p><button id="again" type="button">Новый бой</button></div></div>
 <script type="module">
@@ -67,6 +77,28 @@ for(let i=-3;i<=3;i++)for(let j=-2;j<=2;j++){
  addCollider(x,z,2.55,2.55);
  block(5.1,.12,5.1,x,height,z,bright).castShadow=false;
  for(let h=1;h<height-0.5;h+=1.6){block(5.13,.09,.09,x,h,z+2.56,bright).castShadow=false}
+}
+// Shorten the camera boom before it intersects a solid building.
+// The map collision footprints are shared with character collision.
+// A slab ray-box intersection finds the nearest obstacle along the camera ray.
+function cameraClearance(from,to){
+ const dx=to.x-from.x,dz=to.z-from.z;
+ let nearest=1;
+ const pad=.40;
+ for(const c of colliders){
+  const minX=c.x-c.halfX-pad,maxX=c.x+c.halfX+pad;
+  const minZ=c.z-c.halfZ-pad,maxZ=c.z+c.halfZ+pad;
+  let tmin=0,tmax=1;
+  for(const [p,d,lo,hi] of [[from.x,dx,minX,maxX],[from.z,dz,minZ,maxZ]]){
+   if(Math.abs(d)<1e-7){if(p<lo||p>hi){tmin=2;break}continue}
+   const a=(lo-p)/d,b=(hi-p)/d;
+   tmin=Math.max(tmin,Math.min(a,b));
+   tmax=Math.min(tmax,Math.max(a,b));
+   if(tmax<tmin)break;
+  }
+  if(tmax>=tmin&&tmin<=1&&tmax>=0)nearest=Math.min(nearest,Math.max(0,tmin-.025));
+ }
+ return nearest;
 }
 const terminal=new THREE.Group();scene.add(terminal);terminal.position.set(0,0,-12);
 block(2.3,.45,2.3,0,.24,0,towerMat,terminal);
@@ -133,6 +165,40 @@ const hero=actor(true),enemy=actor(false);hero.root.position.set(0,0,6);enemy.ro
 const enemyProfiles=[{name:'Патрульный',hp:85,speed:2.2,damage:9,color:0xbd3456},{name:'Разведчик',hp:70,speed:3.7,damage:8,color:0xe5a244},{name:'Тяжёлый дроид',hp:155,speed:1.65,damage:17,color:0x954ad4}];
 let enemyIndex=0,questActive=false,kills=0,missionComplete=false;
 function configureEnemy(){const p=enemyProfiles[enemyIndex];enemyHP=p.hp;enemy.root.position.set(spawnPositions[enemyIndex][0],0,spawnPositions[enemyIndex][1]);enemy.root.visible=true;enemy.torso.material.color.setHex(p.color);$('enemyType').textContent=p.name;enemyState='approach';enemyWarnUntil=enemyRecoverUntil=lastEnemyAttack=0;combatHud();ui()}
+// 2D tactical map: north at the top, fixed world coordinates, no extra WebGL scene.
+const mapCanvas=$('mapCanvas'),mapContext=mapCanvas.getContext('2d');
+let mapLastDraw=0;
+$('mapToggle').addEventListener('click',()=>{
+ const box=$('minimap');box.classList.toggle('minimized');
+ $('mapToggle').querySelector('small').textContent=box.classList.contains('minimized')?'+':'−';
+});
+function drawMinimap(now){
+ if(now-mapLastDraw<110||$('minimap').classList.contains('minimized'))return;
+ mapLastDraw=now;
+ const g=mapContext,S=256,margin=13,scale=(S-2*margin)/90;
+ const tx=x=>S/2+x*scale,tz=z=>S/2+z*scale;
+ g.clearRect(0,0,S,S);
+ g.fillStyle='#111a2c';g.fillRect(0,0,S,S);
+ // Wide roads with dashed center markings.
+ for(const z of [-20,0,20]){g.fillStyle='#273750';g.fillRect(tx(-43),tz(z-2.5),86*scale,5*scale)}
+ for(let x=-35;x<38;x+=9){g.fillStyle='#8099b0';for(const z of [-20,0,20])g.fillRect(tx(x),tz(z)-1,3*scale,2)}
+ g.strokeStyle='#5b789c';g.lineWidth=2;g.strokeRect(tx(-43),tz(-43),86*scale,86*scale);
+ for(const c of colliders){
+  g.fillStyle=c.z===-12&&c.x===0?'#1f6f78':'#4c5074';
+  g.fillRect(tx(c.x-c.halfX),tz(c.z-c.halfZ),c.halfX*2*scale,c.halfZ*2*scale);
+  g.strokeStyle=c.z===-12&&c.x===0?'#68f0e4':'#8b8cb6';g.lineWidth=1;
+  g.strokeRect(tx(c.x-c.halfX),tz(c.z-c.halfZ),c.halfX*2*scale,c.halfZ*2*scale);
+ }
+ const dot=(x,z,color,r)=>{g.beginPath();g.arc(tx(x),tz(z),r,0,Math.PI*2);g.fillStyle=color;g.fill();g.strokeStyle='#101322';g.lineWidth=2;g.stroke()};
+ dot(terminal.position.x,terminal.position.z,questActive?'#66ffac':'#ffe17d',5);
+ if(enemy.root.visible)dot(enemy.root.position.x,enemy.root.position.z,'#ff697e',5);
+ // Direction indicator follows actual hero facing direction.
+ const a=hero.root.rotation.y,x=tx(hero.root.position.x),y=tz(hero.root.position.z);
+ g.save();g.translate(x,y);g.rotate(Math.PI-a);
+ g.beginPath();g.moveTo(0,-10);g.lineTo(7,7);g.lineTo(0,3);g.lineTo(-7,7);g.closePath();
+ g.fillStyle='#59eaff';g.strokeStyle='#ffffff';g.lineWidth=2;g.fill();g.stroke();g.restore();
+ g.fillStyle='#d6e4fc';g.font='bold 13px system-ui';g.fillText('N',S/2-5,11);
+}
 function saveMission(){try{localStorage.setItem('skinforge_3d_world_v23',JSON.stringify({completed:missionComplete}))}catch{}}
 function questUI(){ $('quest').textContent=missionComplete?'🏆 Задание выполнено! Все три робота побеждены':`🎯 ${questActive?'Терминал активирован':'Найди терминал'} · Роботы: ${kills}/3`;}
 function robotDefeated(){kills++;enemy.root.visible=false;questUI();if(kills===3){missionComplete=true;saveMission();stop(true)}else{enemyIndex=kills;configureEnemy();hp=Math.min(100,hp+25);ui();say('🤖 НОВЫЙ ПРОТИВНИК · +25 HP')}}
@@ -310,10 +376,20 @@ function tick(now){
  // Camera trails smoothly behind the character, with optional finger orbit.
  camHeading+=deltaAngle(camHeading,hero.root.rotation.y)*Math.min(1,dt*2.4);
  const camYaw=camHeading+orbitOffset;
- const desired=hero.root.position.clone().add(new THREE.Vector3(-Math.sin(camYaw)*7.9,3.8,-Math.cos(camYaw)*7.9));
- camera.position.lerp(desired,Math.min(1,dt*4.5));
- const aim=hero.root.position.clone().add(new THREE.Vector3(Math.sin(camYaw)*2.0,1.65,Math.cos(camYaw)*2.0));
+ const aim=hero.root.position.clone().add(new THREE.Vector3(Math.sin(camYaw)*1.8,1.65,Math.cos(camYaw)*1.8));
+ const origin=hero.root.position.clone().add(new THREE.Vector3(0,1.75,0));
+ const preferred=hero.root.position.clone().add(new THREE.Vector3(-Math.sin(camYaw)*7.9,3.8,-Math.cos(camYaw)*7.9));
+ const clearance=cameraClearance(origin,preferred);
+ const camDist=Math.max(1.15,7.9*clearance);
+ const safe=hero.root.position.clone().add(new THREE.Vector3(-Math.sin(camYaw)*camDist,3.8*camDist/7.9,-Math.cos(camYaw)*camDist));
+ // Contract quickly when blocked, expand gradually in open space.
+ const blocked=clearance<.98;
+ camera.position.lerp(safe,Math.min(1,dt*(blocked?16:3.7)));
+ // Extra check prevents smooth interpolation briefly passing through buildings.
+ const currentClearance=cameraClearance(origin,camera.position);
+ if(currentClearance<1){camera.position.lerpVectors(origin,camera.position,Math.max(.1,currentClearance-.025));}
  camera.lookAt(aim);
+ drawMinimap(now);
  renderer.render(scene,camera);
 }
 function resize(){const w=window.innerWidth,h=window.innerHeight;camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h);renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.7))}
