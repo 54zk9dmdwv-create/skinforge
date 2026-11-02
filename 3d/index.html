@@ -33,10 +33,12 @@
 #talkText{line-height:1.5;font-size:15px;color:#eee5ff;margin:10px 0 20px}
 .talkActions{display:grid;gap:10px}.talkActions button{border-radius:12px;padding:13px 10px;font-weight:800;color:white;border:1px solid #7d5cb9;background:#32274d}.talkActions #talkAccept{background:linear-gradient(100deg,#387e95,#5a47aa);border-color:#75bcd6}
 @media(max-height:700px){#npcQuest{top:calc(142px + env(safe-area-inset-top))}#combatInfo{top:calc(176px + env(safe-area-inset-top))}#interact{bottom:calc(155px + env(safe-area-inset-bottom))}}
-/* v2.6: two NPCs, credits, persistent reputation and a local merchant */
+/* v2.7: Eastern Sector, new NPC and relay mission, persistent economy */
 #npcQuest{display:flex;flex-direction:column;align-items:center;gap:3px;top:calc(145px + env(safe-area-inset-top));font-size:11px}
 #wallet{font-size:10px;padding:3px 9px;background:#121b37d9;border:1px solid #628fada8;border-radius:999px;color:#d0ffee;text-shadow:none}
 #talkBox h2{font-size:21px}#talkText{font-size:14px}
+#districtMission{font-size:10px;color:#b8e6ff;text-shadow:0 1px 5px #000;max-width:94vw;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}
+@media(max-width:390px){#npcMission{max-width:95vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}}
 @media(max-height:700px){#npcQuest{top:calc(136px + env(safe-area-inset-top))}}
 </style>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js"}}</script>
@@ -45,14 +47,14 @@
 <canvas id="view" aria-label="3D-арена SkinForge"></canvas>
 <div id="loading">Загружаем трёхмерную арену…<span id="error"></span></div>
 <div id="hud">
-<header><div class="logo">⚔️ SKIN<b>FORGE</b> <span style="font-size:10px;color:#d6c0ff">3D</span></div><div class="headerActions"><div class="pill">2.6</div><button id="start" type="button" title="Перезапустить задание" aria-label="Перезапустить задание">↻</button></div></header>
+<header><div class="logo">⚔️ SKIN<b>FORGE</b> <span style="font-size:10px;color:#d6c0ff">3D</span></div><div class="headerActions"><div class="pill">2.7</div><button id="start" type="button" title="Перезапустить задание" aria-label="Перезапустить задание">↻</button></div></header>
 <div id="stats"><div class="stat"><label><span>🛡️ Герой</span><span id="heroHp">100 HP</span></label><div class="track"><div id="heroBar" class="fill"></div></div></div><div class="stat"><label><span>🤖 <span id="enemyType">Патрульный</span></span><span id="enemyHp">100 HP</span></label><div class="track"><div id="enemyBar" class="fill enemy"></div></div></div></div>
 <div id="hint">🌍 Найди терминал, активируй его, победи трёх роботов</div>
 <aside id="minimap" aria-label="Мини-карта"><canvas id="mapCanvas" width="256" height="256" aria-label="Карта зданий, NPC, маяка, груза, робота и терминала"></canvas><button id="mapToggle" type="button" aria-label="Свернуть мини-карту" title="Свернуть мини-карту"><small>−</small></button></aside><div id="message" aria-live="polite"></div><div id="combatInfo"><span id="comboInfo">КОМБО 0/3</span><span id="enemyIntent">РОБОТ: НАБЛЮДАЕТ</span></div>
-<div id="quest">🎯 Терминал: не активирован · Роботы: 0/3</div><div id="npcQuest"><span id="npcMission">👩‍🔧 Найди инженера Нову</span><span id="wallet">⭐ 0 реп. · 🪙 0 кредитов</span></div><button id="interact" type="button">✦ Активировать терминал</button>
+<div id="quest">🎯 Терминал: не активирован · Роботы: 0/3</div><div id="npcQuest"><span id="npcMission">👩‍🔧 Найди инженера Нову</span><span id="wallet">⭐ 0 реп. · 🪙 0 кредитов</span><span id="districtMission">🛰 Восточный сектор: найди офицера Вегу</span></div><button id="interact" type="button">✦ Активировать терминал</button>
 <div id="joystick" aria-label="Джойстик управления"><div id="stick"></div></div>
 <div id="buttons"><button id="guard" class="action" type="button">🛡️<small>Блок</small></button><button id="dodge" class="action" type="button">💨<small>Рывок</small></button><button id="attack" class="action" type="button">⚔️<small>Удар</small></button></div>
-<div id="footer">SKINFORGE 3D · Living World</div>
+<div id="footer">SKINFORGE 3D · Eastern Sector</div>
 </div>
 <div id="overlay" hidden><div id="modal"><div style="font-size:60px" id="resultIcon">🏆</div><h1 id="resultTitle">Победа!</h1><p id="resultText"></p><button id="again" type="button">Новый бой</button></div></div>
 <div id="talkModal" hidden aria-modal="true" role="dialog" aria-labelledby="talkTitle"><div id="talkBox"><h2 id="talkTitle">👩‍🔧 Инженер Нова</h2><p id="talkText"></p><div class="talkActions"><button id="talkAccept" type="button">Принять задание</button><button id="talkClose" type="button">Закрыть</button></div></div></div>
@@ -208,6 +210,30 @@ const salvage=new THREE.Group();scene.add(salvage);salvage.position.set(-5,0,-16
 const salvageMat=material(0x5d5578,.45,.37),salvageBright=new THREE.MeshBasicMaterial({color:0xffbd63});
 block(.95,.65,.95,0,.38,0,salvageMat,salvage);block(.95,.12,.96,0,.76,0,salvageBright,salvage);
 const salvageMarker=new THREE.Mesh(new THREE.OctahedronGeometry(.25),salvageBright);salvageMarker.position.y=1.45;salvage.add(salvageMarker);
+// v2.7: the Eastern Sector has an additional non-hostile officer and relay.
+// New decorations are kept outside solid building footprints to preserve collisions.
+const sectorMat=material(0x1c5068,.37,.48),sectorGlow=new THREE.MeshBasicMaterial({color:0x5beaff});
+for(const z of [-31,-9,14,32]){
+ const g=new THREE.Group();scene.add(g);g.position.set(40,0,z);
+ block(.18,3.6,.18,0,1.8,0,sectorMat,g);
+ block(.6,.18,.6,0,3.66,0,sectorGlow,g);
+}
+for(const z of [-33,33]){block(13,.045,.35,34,.03,z,sectorGlow).castShadow=false}
+const vega=new THREE.Group();scene.add(vega);vega.position.set(27,0,-6);
+const vegaArmor=material(0x477dba,.3,.42),vegaTrim=material(0x9cdbee,.35,.35);
+block(.94,1.27,.63,0,1.55,0,vegaArmor,vega);block(.90,.75,.76,0,2.64,0,vegaTrim,vega);
+block(.67,.16,.12,0,2.68,.43,sectorGlow,vega);
+for(const x of [-.59,.59]){block(.29,.96,.39,x,1.56,0,vegaArmor,vega);block(.33,.84,.4,x*.43,.45,0,vegaTrim,vega)}
+const vegaMarker=new THREE.Mesh(new THREE.OctahedronGeometry(.3),sectorGlow);vegaMarker.position.y=3.49;vega.add(vegaMarker);
+const relay=new THREE.Group();scene.add(relay);relay.position.set(38,0,6);
+block(.76,.34,.76,0,.18,0,sectorMat,relay);block(.3,1.6,.3,0,1.04,0,vegaTrim,relay);
+const relayCore=new THREE.Mesh(new THREE.OctahedronGeometry(.35),sectorGlow);relayCore.position.y=2.12;relay.add(relayCore);
+const relayLight=new THREE.PointLight(0x45dfff,2.8,9);relayLight.position.y=2.1;relay.add(relayLight);
+const DISTRICT_KEY='skinforge_3d_eastern_sector_v27';
+let sector={phase:'new'};
+try{const saved=JSON.parse(localStorage.getItem(DISTRICT_KEY));if(['new','accepted','scanned','complete'].includes(saved?.phase))sector.phase=saved.phase}catch{}
+function saveSector(){try{localStorage.setItem(DISTRICT_KEY,JSON.stringify(sector))}catch{say('Не удалось сохранить сектор')}}
+function sectorUI(){const labels={new:'🛰 Восточный сектор: поговори с Вегой',accepted:'🛰 Найди ретранслятор на востоке',scanned:'🛰 Вернись к офицеру Веге',complete:'✅ Восточный сектор: связь восстановлена'};$('districtMission').textContent=labels[sector.phase]}
 const ECON_KEY='skinforge_3d_economy_v26';
 let economy={merchantPhase:'new',reputation:0,credits:0,novaRewarded:false};
 try{const stored=JSON.parse(localStorage.getItem(ECON_KEY));if(stored&&typeof stored==='object')economy={...economy,...stored}}catch{}
@@ -222,13 +248,24 @@ try{const saved=JSON.parse(localStorage.getItem(NPC_KEY));if(['new','accepted','
 if(npcPhase==='complete'&&!economy.novaRewarded){economy.reputation+=100;economy.novaRewarded=true;persistEconomy()}
 let talkOpen=false;
 function saveNpc(){try{localStorage.setItem(NPC_KEY,JSON.stringify({phase:npcPhase}))}catch{say('Не удалось сохранить задание')}}
-function npcQuestUI(){const texts={new:'👩‍🔧 Найди инженера Нову',accepted:'📡 Найди маяк Новы',found:'📦 Вернись к Нове',complete:'✅ Нова: задание выполнено'};const mt={new:' · 🧰 Найди торговца Рея',accepted:' · 📦 Найди ящик деталей',found:' · 🧰 Вернись к Рею',complete:' · ✅ Рей: задание выполнено'};$('npcMission').textContent=texts[npcPhase]+mt[economy.merchantPhase];walletUI()}
+function npcQuestUI(){sectorUI();const texts={new:'👩‍🔧 Найди инженера Нову',accepted:'📡 Найди маяк Новы',found:'📦 Вернись к Нове',complete:'✅ Нова: задание выполнено'};const mt={new:' · 🧰 Найди торговца Рея',accepted:' · 📦 Найди ящик деталей',found:' · 🧰 Вернись к Рею',complete:' · ✅ Рей: задание выполнено'};$('npcMission').textContent=texts[npcPhase]+mt[economy.merchantPhase];walletUI()}
 function closeTalk(){talkOpen=false;$('talkModal').hidden=true}
 function openTalk(target='nova'){talkTarget=target;talkOpen=true;clearJoy();setGuard(false);$('talkModal').hidden=false;
+ if(target==='vega'){
+  const texts={new:'Я офицер Вега. В Восточном секторе пропала связь. Подойди к ретранслятору и собери данные, а потом доложи мне.',accepted:'Ретранслятор отмечен голубым маркером на мини-карте. Он на восточной окраине.',scanned:'Связь восстановлена! За твой труд полагается 90 кредитов и 80 репутации.',complete:'Спасибо, пилот. Восточный сектор снова на связи. Исследуй город и помогай другим жителям.'};
+  $('talkTitle').textContent='🛰 Офицер Вега';$('talkText').textContent=texts[sector.phase];
+  $('talkAccept').hidden=sector.phase==='complete'||sector.phase==='accepted';
+  $('talkAccept').textContent=sector.phase==='new'?'Принять задание':'Сдать данные';return;
+ }
  if(target==='nova'){const words={new:'Привет, пилот! В городе потерян энергетический маяк. Найди его на мини-карте и принеси данные мне.',accepted:'Маяк отмечен жёлтой точкой. Подойди к нему и используй кнопку взаимодействия.',found:'Отличная работа! Полученные данные позволят восстановить связь. Получи награду — 100 очков репутации.',complete:'Спасибо за помощь! У торговца Рея есть ещё работа и припасы.'};$('talkTitle').textContent='👩‍🔧 Инженер Нова';$('talkText').textContent=words[npcPhase];$('talkAccept').hidden=npcPhase==='accepted'||npcPhase==='complete';$('talkAccept').textContent=npcPhase==='found'?'Сдать задание':'Принять задание';return}
  const words={new:'Я Рей, торговец запчастями. Найди ящик деталей у северной дороги. Заплачу 75 кредитов и дам 60 репутации.',accepted:'Ищи оранжевый маркер на мини-карте. Забери ящик и возвращайся.',found:'Ты принёс детали! Держи 75 кредитов и 60 репутации.',complete:'Спасибо за помощь. Могу продать аптечку за 35 кредитов: восстановит 40 HP.'};$('talkTitle').textContent='🧰 Торговец Рей';$('talkText').textContent=words[economy.merchantPhase];$('talkAccept').hidden=economy.merchantPhase==='accepted';$('talkAccept').textContent=economy.merchantPhase==='new'?'Принять задание':economy.merchantPhase==='found'?'Сдать детали':'Купить аптечку · 35 🪙';
 }
 $('talkAccept').addEventListener('click',()=>{
+ if(talkTarget==='vega'){
+  if(sector.phase==='new'){sector.phase='accepted';say('🛰 НАЙДИ РЕТРАНСЛЯТОР')}
+  else if(sector.phase==='scanned'){sector.phase='complete';economy.credits+=90;economy.reputation+=80;persistEconomy();say('🪙 +90 КРЕДИТОВ · ⭐ +80 РЕПУТАЦИИ')}
+  saveSector();npcQuestUI();closeTalk();return;
+ }
  if(talkTarget==='nova'){if(npcPhase==='new')npcPhase='accepted';else if(npcPhase==='found'){npcPhase='complete';if(!economy.novaRewarded){economy.reputation+=100;economy.novaRewarded=true;persistEconomy()}}saveNpc();npcQuestUI();closeTalk();say(npcPhase==='complete'?'🎉 +100 РЕПУТАЦИИ':'📡 НАЙДИ МАЯК');return}
  if(economy.merchantPhase==='new'){economy.merchantPhase='accepted';say('📦 НАЙДИ ДЕТАЛИ')}
  else if(economy.merchantPhase==='found'){economy.merchantPhase='complete';economy.reputation+=60;economy.credits+=75;say('🪙 +75 КРЕДИТОВ · ⭐ +60 РЕПУТАЦИИ')}
@@ -237,8 +274,8 @@ $('talkAccept').addEventListener('click',()=>{
 });
 $('talkClose').addEventListener('click',closeTalk);
 function near(a,b,dist){return a.position.distanceTo(b.position)<dist}
-function currentInteract(){if(near(hero.root,nova,3.0))return 'nova';if(near(hero.root,trader,3.0))return 'trader';if(npcPhase==='accepted'&&near(hero.root,beacon,2.8))return 'beacon';if(economy.merchantPhase==='accepted'&&near(hero.root,salvage,2.8))return 'salvage';if(!questActive&&near(hero.root,terminal,5.3))return 'terminal';return null}
-function updateInteract(){const label=$('interact'),what=currentInteract();const names={nova:'💬 Поговорить с Новой',trader:'🧰 Поговорить с Реем',beacon:'📡 Исследовать маяк',salvage:'📦 Забрать детали',terminal:'✦ Активировать терминал'};label.classList.toggle('visible',!!what&&!talkOpen);if(what)label.textContent=names[what]}
+function currentInteract(){if(near(hero.root,vega,3.0))return 'vega';if(sector.phase==='accepted'&&near(hero.root,relay,3.0))return 'relay';if(near(hero.root,nova,3.0))return 'nova';if(near(hero.root,trader,3.0))return 'trader';if(npcPhase==='accepted'&&near(hero.root,beacon,2.8))return 'beacon';if(economy.merchantPhase==='accepted'&&near(hero.root,salvage,2.8))return 'salvage';if(!questActive&&near(hero.root,terminal,5.3))return 'terminal';return null}
+function updateInteract(){const label=$('interact'),what=currentInteract();const names={vega:'🛰 Поговорить с Вегой',relay:'🛰 Сканировать ретранслятор',nova:'💬 Поговорить с Новой',trader:'🧰 Поговорить с Реем',beacon:'📡 Исследовать маяк',salvage:'📦 Забрать детали',terminal:'✦ Активировать терминал'};label.classList.toggle('visible',!!what&&!talkOpen);if(what)label.textContent=names[what]}
 
 // One active robot at a time keeps mobile performance predictable.
 const enemyProfiles=[{name:'Патрульный',hp:85,speed:2.2,damage:9,color:0xbd3456},{name:'Разведчик',hp:70,speed:3.7,damage:8,color:0xe5a244},{name:'Тяжёлый дроид',hp:155,speed:1.65,damage:17,color:0x954ad4}];
@@ -273,6 +310,8 @@ function drawMinimap(now){
  dot(terminal.position.x,terminal.position.z,questActive?'#66ffac':'#ffe17d',5);
  dot(nova.position.x,nova.position.z,'#84ffb8',5);
  dot(trader.position.x,trader.position.z,'#ff9d67',5);
+ dot(vega.position.x,vega.position.z,'#63b8ff',5);
+ if(sector.phase==='accepted'||sector.phase==='scanned')dot(relay.position.x,relay.position.z,'#5beaff',6);
  if(economy.merchantPhase==='accepted'||economy.merchantPhase==='found')dot(salvage.position.x,salvage.position.z,'#ffa84d',5);
  if(npcPhase==='accepted'||npcPhase==='found')dot(beacon.position.x,beacon.position.z,'#ffc64d',5);
  if(enemy.root.visible)dot(enemy.root.position.x,enemy.root.position.z,'#ff697e',5);
@@ -323,7 +362,7 @@ function say(text){$('message').textContent=text;$('message').classList.add('sho
 function ui(){$('heroHp').textContent=Math.max(0,Math.ceil(hp))+' HP';$('heroBar').style.width=Math.max(0,hp)+'%';$('enemyHp').textContent=Math.max(0,Math.ceil(enemyHP))+' HP';$('enemyBar').style.width=Math.max(0,100*enemyHP/enemyProfiles[enemyIndex].hp)+'%'}
 function stop(win){playing=false;$('overlay').hidden=false;$('resultIcon').textContent=win?'🏆':'💔';$('resultTitle').textContent=win?'МИССИЯ ПРОЙДЕНА!':'ПОРАЖЕНИЕ';$('resultText').textContent=win?'Терминал активирован, три робота побеждены. Мир исследован!':'Ты победил '+kills+' из 3 роботов. Попробуй ещё раз.';if(win){wins++;try{localStorage.setItem('skinforge_3d_demo_v20',String(wins))}catch{}}}
 function reset(){hp=100;playing=true;questActive=false;missionComplete=false;kills=0;enemyIndex=0;combo=0;comboDeadline=0;guardHeld=false;enemyState='approach';enemyWarnUntil=enemyRecoverUntil=0;damageDealt=blockedHits=0;$('guard').classList.remove('held');orbitOffset=0;camHeading=Math.PI;slashArc.visible=false;dashTrail.visible=false;hero.root.position.set(0,0,6);moveVelocity.set(0,0);configureEnemy();lastAttack=lastDodge=lastEnemyAttack=0;attackAnim=enemyAnim=0;dodgeUntil=0;$('overlay').hidden=true;ui();questUI();say('НАЙДИ СВЕТЯЩИЙСЯ ТЕРМИНАЛ')}
-$('interact').addEventListener('click',()=>{const what=currentInteract();if(what==='nova'||what==='trader'){openTalk(what);return}if(what==='beacon'){npcPhase='found';saveNpc();npcQuestUI();say('📡 МАЯК ИССЛЕДОВАН');return}if(what==='salvage'){economy.merchantPhase='found';persistEconomy();npcQuestUI();say('📦 ДЕТАЛИ НАЙДЕНЫ · ВЕРНИСЬ К РЕЮ');return}if(what==='terminal'){questActive=true;questUI();say('ТЕРМИНАЛ АКТИВИРОВАН · НАЙДИ РОБОТОВ')}});
+$('interact').addEventListener('click',()=>{const what=currentInteract();if(what==='nova'||what==='trader'||what==='vega'){openTalk(what);return}if(what==='relay'){sector.phase='scanned';saveSector();sectorUI();say('🛰 ДАННЫЕ ПОЛУЧЕНЫ · ВЕРНИСЬ К ВЕГЕ');return}if(what==='beacon'){npcPhase='found';saveNpc();npcQuestUI();say('📡 МАЯК ИССЛЕДОВАН');return}if(what==='salvage'){economy.merchantPhase='found';persistEconomy();npcQuestUI();say('📦 ДЕТАЛИ НАЙДЕНЫ · ВЕРНИСЬ К РЕЮ');return}if(what==='terminal'){questActive=true;questUI();say('ТЕРМИНАЛ АКТИВИРОВАН · НАЙДИ РОБОТОВ')}});
 $('start').addEventListener('click',reset);$('again').addEventListener('click',reset);
 $('attack').addEventListener('pointerdown',e=>{
  e.preventDefault();if(!playing||talkOpen)return;
@@ -473,7 +512,7 @@ function tick(now){
  const currentClearance=cameraClearance(origin,camera.position);
  if(currentClearance<1){camera.position.lerpVectors(origin,camera.position,Math.max(.1,currentClearance-.025));}
  camera.lookAt(aim);
- traderMarker.rotation.y+=dt*.8;traderMarker.position.y=3.5+Math.sin(now*.0022)*.10;salvageMarker.rotation.y+=dt;salvageMarker.position.y=1.45+Math.sin(now*.003)*.07;novaMarker.rotation.y+=dt*.9;novaMarker.position.y=3.54+Math.sin(now*.002)*.12;beaconCore.rotation.y+=dt*1.3;beaconCore.position.y=1.86+Math.sin(now*.003)*.13;
+ vegaMarker.rotation.y+=dt*.8;vegaMarker.position.y=3.49+Math.sin(now*.0021)*.09;relayCore.rotation.y+=dt*.8;relayCore.position.y=2.12+Math.sin(now*.0028)*.12;traderMarker.rotation.y+=dt*.8;traderMarker.position.y=3.5+Math.sin(now*.0022)*.10;salvageMarker.rotation.y+=dt;salvageMarker.position.y=1.45+Math.sin(now*.003)*.07;novaMarker.rotation.y+=dt*.9;novaMarker.position.y=3.54+Math.sin(now*.002)*.12;beaconCore.rotation.y+=dt*1.3;beaconCore.position.y=1.86+Math.sin(now*.003)*.13;
  drawMinimap(now);
  renderer.render(scene,camera);
 }
