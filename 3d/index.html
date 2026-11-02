@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover"><meta name="theme-color" content="#090d20">
-<title>SkinForge 2.3 — World Expansion</title>
+<title>SkinForge 2.3.1 — Movement & Collision</title>
 <style>
 :root{color-scheme:dark;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#080d1c;color:#f4efff;overscroll-behavior:none}button{font:inherit;touch-action:none;-webkit-tap-highlight-color:transparent}#view{position:fixed;inset:0;display:block;width:100%;height:100%;touch-action:none}#hud{position:fixed;inset:0;pointer-events:none;z-index:3}header{position:absolute;left:14px;top:calc(12px + env(safe-area-inset-top));right:14px;display:flex;justify-content:space-between;align-items:center;gap:10px}.logo{font-weight:950;letter-spacing:.12em;text-shadow:0 2px 18px #000;font-size:clamp(15px,4vw,22px)}.logo b{color:#ac88ff}.pill{padding:8px 12px;border:1px solid #7867a1;border-radius:30px;background:#1b1a36cc;font-size:12px;backdrop-filter:blur(12px)}#stats{position:absolute;left:12px;right:12px;top:calc(60px + env(safe-area-inset-top));display:grid;grid-template-columns:1fr 1fr;gap:9px}.stat{padding:10px;background:#141329cb;border:1px solid #65547f;border-radius:14px;backdrop-filter:blur(10px)}.stat label{display:flex;justify-content:space-between;font-weight:750;font-size:12px;gap:6px}.track{margin-top:7px;background:#322a49;height:8px;border-radius:20px;overflow:hidden}.fill{height:100%;width:100%;background:linear-gradient(90deg,#16bda2,#8cfcab);transition:width .13s}.fill.enemy{background:linear-gradient(90deg,#e13d6f,#ff9e75)}#hint{position:absolute;top:calc(151px + env(safe-area-inset-top));left:50%;transform:translateX(-50%);width:min(94vw,440px);text-align:center;color:#e0d3ff;font-size:12px;text-shadow:0 1px 8px #0008}#message{position:absolute;left:50%;top:43%;transform:translate(-50%,-50%);font-size:26px;font-weight:950;text-shadow:0 0 15px #000,0 0 26px #955eff;opacity:0;transition:opacity .12s;text-align:center;min-width:220px}#message.show{opacity:1}#joystick{pointer-events:auto;position:absolute;left:20px;bottom:calc(28px + env(safe-area-inset-bottom));width:138px;height:138px;border-radius:50%;background:#241c4b88;border:2px solid #a78af277;box-shadow:0 0 35px #3922a855, inset 0 0 25px #c8acff10;touch-action:none}#stick{position:absolute;left:50%;top:50%;width:66px;height:66px;border-radius:50%;transform:translate(-50%,-50%);background:radial-gradient(circle at 35% 30%,#b696ff,#653ec2);border:2px solid #dac4ff;box-shadow:0 0 19px #9874ff99;pointer-events:none}#buttons{position:absolute;right:10px;bottom:calc(32px + env(safe-area-inset-bottom));display:flex;gap:7px;align-items:end;pointer-events:auto}.action{width:66px;height:66px;border:1.5px solid #ba97ff;border-radius:50%;color:#fff;background:linear-gradient(155deg,#7c4fe3,#3d276e);box-shadow:0 7px 25px #0006,0 0 19px #a577f34a;display:grid;place-content:center;text-align:center;font-weight:800;font-size:26px;user-select:none}.action small{font-size:11px;font-weight:650;margin-top:3px}.action:active,.action.pressed{filter:brightness(1.4);transform:scale(.95)}#dodge{width:59px;height:59px;background:#252b61;border-color:#74b8f6}#guard{width:59px;height:59px;background:#19474f;border-color:#6ee6dc}#guard.held{box-shadow:0 0 24px #71fce7;background:#20746b}#start{position:absolute;top:calc(185px + env(safe-area-inset-top));left:50%;transform:translateX(-50%);pointer-events:auto;border:1px solid #886cc6;color:white;background:#262044dd;border-radius:16px;padding:9px 16px;font-weight:750;font-size:12px}#overlay{position:fixed;inset:0;background:#060817dc;z-index:9;display:grid;place-items:center;padding:22px;backdrop-filter:blur(9px)}#overlay[hidden]{display:none}#modal{width:min(100%,390px);padding:25px 20px;border-radius:26px;border:1px solid #a889e7;background:linear-gradient(150deg,#35245c,#14152c);box-shadow:0 0 60px #733ff044;text-align:center}#modal h1{margin:8px 0;font-size:29px}#modal p{color:#c6b9e0;line-height:1.5}#again{background:linear-gradient(90deg,#814ae1,#ae50e0);color:white;border:0;padding:15px;border-radius:14px;width:100%;font-weight:850}#loading{position:fixed;inset:0;background:#0b0b22;display:grid;place-items:center;z-index:11;font-size:16px;padding:25px;text-align:center}#loading[hidden]{display:none}#error{display:block;color:#ffb1c5;font-size:12px;margin-top:12px}#combatInfo{position:absolute;left:50%;top:calc(176px + env(safe-area-inset-top));transform:translateX(-50%);display:flex;gap:8px;justify-content:center;white-space:nowrap;font-size:10px;font-weight:800;letter-spacing:.02em;text-shadow:0 2px 8px #000;pointer-events:none}#combatInfo span{padding:6px 8px;border:1px solid #776e9a;background:#17162dcc;border-radius:12px}#combatInfo .danger{border-color:#ff6273;color:#ffc3cb;background:#60202de0;animation:warnpulse .3s infinite alternate}@keyframes warnpulse{to{transform:scale(1.055);filter:brightness(1.35)}}#footer{pointer-events:none;position:absolute;bottom:calc(181px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);font-size:11px;color:#c8c1df99;white-space:nowrap}@media(max-width:375px){#joystick{width:120px;height:120px;left:12px}#buttons{right:9px;gap:8px}.action{width:58px;height:58px}#dodge,#guard{width:52px;height:52px}#stats{top:calc(56px + env(safe-area-inset-top))}#hint{top:calc(140px + env(safe-area-inset-top));font-size:11px}#start{top:calc(181px + env(safe-area-inset-top))}}@media(max-height:680px){#hint{display:none}#start{top:calc(135px + env(safe-area-inset-top))}#combatInfo{top:calc(125px + env(safe-area-inset-top));font-size:9px}#footer{display:none}}
 #quest{position:absolute;left:12px;top:calc(132px + env(safe-area-inset-top));width:calc(100% - 24px);pointer-events:none;color:#e7fffd;text-align:center;font-size:12px;font-weight:750;text-shadow:0 2px 8px #000}#interact{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(190px + env(safe-area-inset-bottom));pointer-events:auto;display:none;background:#0c6562e8;border:1px solid #70ffec;color:#fff;border-radius:15px;padding:12px;white-space:nowrap;font-weight:850}#interact.visible{display:block}#hint{display:none}#combatInfo{top:calc(164px + env(safe-area-inset-top))}#start{top:calc(192px + env(safe-area-inset-top))}#footer{display:none}@media(max-height:700px){#quest{top:calc(125px + env(safe-area-inset-top))}#start{top:calc(168px + env(safe-area-inset-top))}#combatInfo{top:calc(153px + env(safe-area-inset-top))}#interact{bottom:calc(150px + env(safe-area-inset-bottom))}}
@@ -13,7 +13,7 @@
 <canvas id="view" aria-label="3D-арена SkinForge"></canvas>
 <div id="loading">Загружаем трёхмерную арену…<span id="error"></span></div>
 <div id="hud">
-<header><div class="logo">⚔️ SKIN<b>FORGE</b> <span style="font-size:10px;color:#d6c0ff">3D</span></div><div class="pill">WORLD EXPANSION 2.3</div></header>
+<header><div class="logo">⚔️ SKIN<b>FORGE</b> <span style="font-size:10px;color:#d6c0ff">3D</span></div><div class="pill">WORLD FIX 2.3.1</div></header>
 <div id="stats"><div class="stat"><label><span>🛡️ Герой</span><span id="heroHp">100 HP</span></label><div class="track"><div id="heroBar" class="fill"></div></div></div><div class="stat"><label><span>🤖 <span id="enemyType">Патрульный</span></span><span id="enemyHp">100 HP</span></label><div class="track"><div id="enemyBar" class="fill enemy"></div></div></div></div>
 <div id="hint">🌍 Найди терминал, активируй его, победи трёх роботов</div>
 <div id="message" aria-live="polite"></div><div id="combatInfo"><span id="comboInfo">КОМБО 0/3</span><span id="enemyIntent">РОБОТ: НАБЛЮДАЕТ</span></div>
@@ -39,11 +39,32 @@ function block(w,h,d,x,y,z,mat,parent=scene){const obj=new THREE.Mesh(new THREE.
 const floor=block(90,.5,90,0,-.28,0,floorMat);floor.castShadow=false;
 const grid=new THREE.GridHelper(90,45,0x503c83,0x252640);grid.position.y=.012;scene.add(grid);
 const road=material(0x1b2538,.35,.72),towerMat=material(0x383050,.45,.55),bright=new THREE.MeshBasicMaterial({color:0x45dfff});
+// Static, axis-aligned obstacle footprints. Keep these in sync with the map meshes.
+const colliders=[];
+function addCollider(x,z,halfX,halfZ){colliders.push({x,z,halfX,halfZ})}
+const PLAYER_RADIUS=.55, ENEMY_RADIUS=.58, WORLD_LIMIT=43.7;
+function collides(x,z,r){
+ if(Math.abs(x)>WORLD_LIMIT-r||Math.abs(z)>WORLD_LIMIT-r)return true;
+ for(const c of colliders){
+   const nx=Math.max(c.x-c.halfX,Math.min(x,c.x+c.halfX));
+   const nz=Math.max(c.z-c.halfZ,Math.min(z,c.z+c.halfZ));
+   if((x-nx)**2+(z-nz)**2<r*r)return true;
+ }
+ return false;
+}
+// Resolve axes separately so diagonal movement slides along a building's wall.
+function moveWithCollision(pos,dx,dz,r){
+ const nx=pos.x+dx,nz=pos.z+dz;
+ if(!collides(nx,pos.z,r))pos.x=nx;
+ if(!collides(pos.x,nz,r))pos.z=nz;
+}
+
 for(const z of [-20,0,20]){block(72,.04,5.2,0,.018,z,road).castShadow=false;for(let x=-33;x<=33;x+=7)block(2,.055,.13,x,.052,z,bright).castShadow=false}
 for(let i=-3;i<=3;i++)for(let j=-2;j<=2;j++){
- const x=i*11,z=j*12;if(Math.abs(x)<7&&Math.abs(z)<8)continue;
+ const x=i*11,z=j*12;if((Math.abs(x)<7&&Math.abs(z)<8)||(x===0&&z===-12))continue;
  const height=3+((Math.abs(i*7+j*3)%5)*1.65);
  block(5,height,5,x,height/2,z,towerMat);
+ addCollider(x,z,2.55,2.55);
  block(5.1,.12,5.1,x,height,z,bright).castShadow=false;
  for(let h=1;h<height-0.5;h+=1.6){block(5.13,.09,.09,x,h,z+2.56,bright).castShadow=false}
 }
@@ -51,6 +72,8 @@ const terminal=new THREE.Group();scene.add(terminal);terminal.position.set(0,0,-
 block(2.3,.45,2.3,0,.24,0,towerMat,terminal);
 block(.85,2.4,.7,0,1.6,0,material(0x255f6f,.3,.3),terminal);
 block(.94,.9,.11,0,2,.42,bright,terminal);
+// Leave the interaction radius outside the terminal's solid pedestal.
+addCollider(0,-12,1.22,1.22);
 const terminalGlow=new THREE.PointLight(0x40edff,6,13);terminalGlow.position.set(0,2.4,-12);scene.add(terminalGlow);
 const spawnPositions=[[0,-6],[-15,-13],[17,9]];
 const sphere=(r,m,x,y,z,parent)=>{const o=new THREE.Mesh(new THREE.SphereGeometry(r,14,10),m);o.position.set(x,y,z);o.castShadow=true;parent.add(o);return o};
@@ -131,6 +154,9 @@ viewport.addEventListener('pointermove',e=>{if(orbitPointer!==e.pointerId)return
 viewport.addEventListener('pointerup',e=>{if(orbitPointer===e.pointerId)orbitPointer=null});
 viewport.addEventListener('pointercancel',e=>{if(orbitPointer===e.pointerId)orbitPointer=null});
 const deltaAngle=(a,b)=>Math.atan2(Math.sin(b-a),Math.cos(b-a));
+// Velocity-based movement: smooth starts, stops and analog stick precision.
+const moveVelocity=new THREE.Vector2();
+const PLAYER_MAX_SPEED=6.2, ACCELERATION=10.5, DECELERATION=13.5;
 let hp=100,enemyHP=85,wins=0,playing=true,lastAttack=0,lastDodge=0,lastEnemyAttack=0,attackAnim=0,enemyAnim=0,dodgeUntil=0,damageFlash=0,popUntil=0,messageTimeout=0;
 let combo=0,comboDeadline=0,guardHeld=false,enemyState="approach",enemyWarnUntil=0,enemyRecoverUntil=0,enemyStrafeDir=1,nextStrafe=0,damageDealt=0,blockedHits=0;
 function combatHud(now=performance.now()){
@@ -146,7 +172,7 @@ joy.addEventListener('pointerup',clearJoy);joy.addEventListener('pointercancel',
 function say(text){$('message').textContent=text;$('message').classList.add('show');clearTimeout(messageTimeout);messageTimeout=setTimeout(()=>$('message').classList.remove('show'),650)}
 function ui(){$('heroHp').textContent=Math.max(0,Math.ceil(hp))+' HP';$('heroBar').style.width=Math.max(0,hp)+'%';$('enemyHp').textContent=Math.max(0,Math.ceil(enemyHP))+' HP';$('enemyBar').style.width=Math.max(0,100*enemyHP/enemyProfiles[enemyIndex].hp)+'%'}
 function stop(win){playing=false;$('overlay').hidden=false;$('resultIcon').textContent=win?'🏆':'💔';$('resultTitle').textContent=win?'МИССИЯ ПРОЙДЕНА!':'ПОРАЖЕНИЕ';$('resultText').textContent=win?'Терминал активирован, три робота побеждены. Мир исследован!':'Ты победил '+kills+' из 3 роботов. Попробуй ещё раз.';if(win){wins++;try{localStorage.setItem('skinforge_3d_demo_v20',String(wins))}catch{}}}
-function reset(){hp=100;playing=true;questActive=false;missionComplete=false;kills=0;enemyIndex=0;combo=0;comboDeadline=0;guardHeld=false;enemyState='approach';enemyWarnUntil=enemyRecoverUntil=0;damageDealt=blockedHits=0;$('guard').classList.remove('held');orbitOffset=0;camHeading=Math.PI;slashArc.visible=false;dashTrail.visible=false;hero.root.position.set(0,0,6);configureEnemy();lastAttack=lastDodge=lastEnemyAttack=0;attackAnim=enemyAnim=0;dodgeUntil=0;$('overlay').hidden=true;ui();questUI();say('НАЙДИ СВЕТЯЩИЙСЯ ТЕРМИНАЛ')}
+function reset(){hp=100;playing=true;questActive=false;missionComplete=false;kills=0;enemyIndex=0;combo=0;comboDeadline=0;guardHeld=false;enemyState='approach';enemyWarnUntil=enemyRecoverUntil=0;damageDealt=blockedHits=0;$('guard').classList.remove('held');orbitOffset=0;camHeading=Math.PI;slashArc.visible=false;dashTrail.visible=false;hero.root.position.set(0,0,6);moveVelocity.set(0,0);configureEnemy();lastAttack=lastDodge=lastEnemyAttack=0;attackAnim=enemyAnim=0;dodgeUntil=0;$('overlay').hidden=true;ui();questUI();say('НАЙДИ СВЕТЯЩИЙСЯ ТЕРМИНАЛ')}
 $('interact').addEventListener('click',()=>{if(!questActive && hero.root.position.distanceTo(terminal.position)<5.3){questActive=true;questUI();say('ТЕРМИНАЛ АКТИВИРОВАН · НАЙДИ РОБОТОВ')}});
 $('start').addEventListener('click',reset);$('again').addEventListener('click',reset);
 $('attack').addEventListener('pointerdown',e=>{
@@ -184,8 +210,9 @@ $('dodge').addEventListener('pointerdown',e=>{
  const vz=Math.cos(yaw)*forward+Math.sin(yaw)*side;
  const len=Math.hypot(vx,vz);
  const dx=len>.1?vx/len:Math.sin(hero.root.rotation.y),dz=len>.1?vz/len:Math.cos(hero.root.rotation.y);
- hero.root.position.x=THREE.MathUtils.clamp(hero.root.position.x+dx*2.8,-39,39);
- hero.root.position.z=THREE.MathUtils.clamp(hero.root.position.z+dz*2.8,-39,39);
+ moveWithCollision(hero.root.position,dx*2.8,dz*2.8,PLAYER_RADIUS);
+ // A dash cancels residual analog movement for predictable landing.
+ moveVelocity.set(0,0);
  dashTrail.position.set(hero.root.position.x,.08,hero.root.position.z);dashTrail.visible=true;
  say('УКЛОНЕНИЕ');
 });
@@ -196,18 +223,31 @@ function tick(now){
  if(playing){
   $('interact').classList.toggle('visible',!questActive&&hero.root.position.distanceTo(terminal.position)<5.3);
   terminal.rotation.y+=dt*.45;
-  const forward=-stickY,side=stickX,input=Math.hypot(forward,side);
-  moving=input>.08;
+  const forward=-stickY,side=stickX,input=Math.min(1,Math.hypot(forward,side));
+  const yaw=camHeading+orbitOffset;
+  // Keep the previously tested left/right mapping unchanged.
+  const desiredX=Math.sin(yaw)*forward-Math.cos(yaw)*side;
+  const desiredZ=Math.cos(yaw)*forward+Math.sin(yaw)*side;
+  const deadzone=.09;
+  const analog=input>deadzone?(input-deadzone)/(1-deadzone):0;
+  const targetX=desiredX*PLAYER_MAX_SPEED*analog;
+  const targetZ=desiredZ*PLAYER_MAX_SPEED*analog;
+  const rate=analog>0?ACCELERATION:DECELERATION;
+  const smoothing=1-Math.exp(-rate*dt);
+  moveVelocity.x+=(targetX-moveVelocity.x)*smoothing;
+  moveVelocity.y+=(targetZ-moveVelocity.y)*smoothing;
+  if(Math.hypot(moveVelocity.x,moveVelocity.y)<.025 && !analog)moveVelocity.set(0,0);
+  const actualSpeed=moveVelocity.length();
+  moving=actualSpeed>.15;
+  speedFactor=Math.min(1,actualSpeed/PLAYER_MAX_SPEED);
   if(moving){
-   const yaw=camHeading+orbitOffset;
-   const vx=Math.sin(yaw)*forward-Math.cos(yaw)*side;
-   const vz=Math.cos(yaw)*forward+Math.sin(yaw)*side;
-   const dir=Math.atan2(vx,vz);
-   hero.root.rotation.y+=deltaAngle(hero.root.rotation.y,dir)*Math.min(1,dt*11);
-   speedFactor=Math.min(1,input);
-   const speed=4.7+speedFactor*2.5;
-   hero.root.position.x=THREE.MathUtils.clamp(hero.root.position.x+vx*speed*dt,-40,40);
-   hero.root.position.z=THREE.MathUtils.clamp(hero.root.position.z+vz*speed*dt,-40,40);
+    const dir=Math.atan2(moveVelocity.x,moveVelocity.y);
+    hero.root.rotation.y+=deltaAngle(hero.root.rotation.y,dir)*(1-Math.exp(-9.0*dt));
+    const px=hero.root.position.x,pz=hero.root.position.z;
+    moveWithCollision(hero.root.position,moveVelocity.x*dt,moveVelocity.y*dt,PLAYER_RADIUS);
+    // Prevent velocity from building indefinitely when pushing against a wall.
+    if(Math.abs(hero.root.position.x-px)<.00001)moveVelocity.x=0;
+    if(Math.abs(hero.root.position.z-pz)<.00001)moveVelocity.y=0;
   }
   const dx=hero.root.position.x-enemy.root.position.x;
   const dz=hero.root.position.z-enemy.root.position.z;
@@ -227,11 +267,10 @@ function tick(now){
    if(now>=enemyRecoverUntil)enemyState='approach';
   }else{
    // Strafe when close; advance only while player is outside attack reach.
-   if(dist>2.35){const speed=enemyProfiles[enemyIndex].speed;enemy.root.position.x+=dx/dist*speed*dt;enemy.root.position.z+=dz/dist*speed*dt}
+   if(dist>2.35){const speed=enemyProfiles[enemyIndex].speed;moveWithCollision(enemy.root.position,dx/dist*speed*dt,dz/dist*speed*dt,ENEMY_RADIUS)}
    else {
     if(now>nextStrafe){enemyStrafeDir*=-1;nextStrafe=now+900+Math.random()*700}
-    enemy.root.position.x=THREE.MathUtils.clamp(enemy.root.position.x+(-dz/dist)*enemyStrafeDir*1.25*dt,-40,40);
-    enemy.root.position.z=THREE.MathUtils.clamp(enemy.root.position.z+(dx/dist)*enemyStrafeDir*1.25*dt,-40,40);
+    moveWithCollision(enemy.root.position,(-dz/dist)*enemyStrafeDir*1.25*dt,(dx/dist)*enemyStrafeDir*1.25*dt,ENEMY_RADIUS);
     if(questActive&&now-lastEnemyAttack>1450){enemyState='windup';enemyWarnUntil=now+720;combatHud(now)}
    }
   }
