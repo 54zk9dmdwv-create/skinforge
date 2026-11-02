@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover"><meta name="theme-color" content="#090d20">
-<title>SkinForge 2.1 — 3D Combat</title>
+<title>SkinForge 2.1.1 — 3D Combat</title>
 <style>
 :root{color-scheme:dark;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#080d1c;color:#f4efff;overscroll-behavior:none}button{font:inherit;touch-action:none;-webkit-tap-highlight-color:transparent}#view{position:fixed;inset:0;display:block;width:100%;height:100%;touch-action:none}#hud{position:fixed;inset:0;pointer-events:none;z-index:3}header{position:absolute;left:14px;top:calc(12px + env(safe-area-inset-top));right:14px;display:flex;justify-content:space-between;align-items:center;gap:10px}.logo{font-weight:950;letter-spacing:.12em;text-shadow:0 2px 18px #000;font-size:clamp(15px,4vw,22px)}.logo b{color:#ac88ff}.pill{padding:8px 12px;border:1px solid #7867a1;border-radius:30px;background:#1b1a36cc;font-size:12px;backdrop-filter:blur(12px)}#stats{position:absolute;left:12px;right:12px;top:calc(60px + env(safe-area-inset-top));display:grid;grid-template-columns:1fr 1fr;gap:9px}.stat{padding:10px;background:#141329cb;border:1px solid #65547f;border-radius:14px;backdrop-filter:blur(10px)}.stat label{display:flex;justify-content:space-between;font-weight:750;font-size:12px;gap:6px}.track{margin-top:7px;background:#322a49;height:8px;border-radius:20px;overflow:hidden}.fill{height:100%;width:100%;background:linear-gradient(90deg,#16bda2,#8cfcab);transition:width .13s}.fill.enemy{background:linear-gradient(90deg,#e13d6f,#ff9e75)}#hint{position:absolute;top:calc(151px + env(safe-area-inset-top));left:50%;transform:translateX(-50%);width:min(94vw,440px);text-align:center;color:#e0d3ff;font-size:12px;text-shadow:0 1px 8px #0008}#message{position:absolute;left:50%;top:43%;transform:translate(-50%,-50%);font-size:26px;font-weight:950;text-shadow:0 0 15px #000,0 0 26px #955eff;opacity:0;transition:opacity .12s;text-align:center;min-width:220px}#message.show{opacity:1}#joystick{pointer-events:auto;position:absolute;left:20px;bottom:calc(28px + env(safe-area-inset-bottom));width:138px;height:138px;border-radius:50%;background:#241c4b88;border:2px solid #a78af277;box-shadow:0 0 35px #3922a855, inset 0 0 25px #c8acff10;touch-action:none}#stick{position:absolute;left:50%;top:50%;width:66px;height:66px;border-radius:50%;transform:translate(-50%,-50%);background:radial-gradient(circle at 35% 30%,#b696ff,#653ec2);border:2px solid #dac4ff;box-shadow:0 0 19px #9874ff99;pointer-events:none}#buttons{position:absolute;right:18px;bottom:calc(32px + env(safe-area-inset-bottom));display:flex;gap:12px;align-items:end;pointer-events:auto}.action{width:76px;height:76px;border:1.5px solid #ba97ff;border-radius:50%;color:#fff;background:linear-gradient(155deg,#7c4fe3,#3d276e);box-shadow:0 7px 25px #0006,0 0 19px #a577f34a;display:grid;place-content:center;text-align:center;font-weight:800;font-size:26px;user-select:none}.action small{font-size:11px;font-weight:650;margin-top:3px}.action:active,.action.pressed{filter:brightness(1.4);transform:scale(.95)}#dodge{width:65px;height:65px;background:#252b61;border-color:#74b8f6}#start{position:absolute;top:calc(185px + env(safe-area-inset-top));left:50%;transform:translateX(-50%);pointer-events:auto;border:1px solid #886cc6;color:white;background:#262044dd;border-radius:16px;padding:9px 16px;font-weight:750;font-size:12px}#overlay{position:fixed;inset:0;background:#060817dc;z-index:9;display:grid;place-items:center;padding:22px;backdrop-filter:blur(9px)}#overlay[hidden]{display:none}#modal{width:min(100%,390px);padding:25px 20px;border-radius:26px;border:1px solid #a889e7;background:linear-gradient(150deg,#35245c,#14152c);box-shadow:0 0 60px #733ff044;text-align:center}#modal h1{margin:8px 0;font-size:29px}#modal p{color:#c6b9e0;line-height:1.5}#again{background:linear-gradient(90deg,#814ae1,#ae50e0);color:white;border:0;padding:15px;border-radius:14px;width:100%;font-weight:850}#loading{position:fixed;inset:0;background:#0b0b22;display:grid;place-items:center;z-index:11;font-size:16px;padding:25px;text-align:center}#loading[hidden]{display:none}#error{display:block;color:#ffb1c5;font-size:12px;margin-top:12px}#footer{pointer-events:none;position:absolute;bottom:calc(181px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);font-size:11px;color:#c8c1df99;white-space:nowrap}@media(max-width:375px){#joystick{width:120px;height:120px;left:12px}#buttons{right:9px;gap:8px}.action{width:67px;height:67px}#dodge{width:57px;height:57px}#stats{top:calc(56px + env(safe-area-inset-top))}#hint{top:calc(140px + env(safe-area-inset-top));font-size:11px}#start{top:calc(181px + env(safe-area-inset-top))}}@media(max-height:680px){#hint{display:none}#start{top:calc(135px + env(safe-area-inset-top))}#footer{display:none}}
 </style>
@@ -12,7 +12,7 @@
 <canvas id="view" aria-label="3D-арена SkinForge"></canvas>
 <div id="loading">Загружаем трёхмерную арену…<span id="error"></span></div>
 <div id="hud">
-<header><div class="logo">⚔️ SKIN<b>FORGE</b> <span style="font-size:10px;color:#d6c0ff">3D</span></div><div class="pill">3D COMBAT 2.1</div></header>
+<header><div class="logo">⚔️ SKIN<b>FORGE</b> <span style="font-size:10px;color:#d6c0ff">3D</span></div><div class="pill">3D COMBAT 2.1.1</div></header>
 <div id="stats"><div class="stat"><label><span>🛡️ Герой</span><span id="heroHp">100 HP</span></label><div class="track"><div id="heroBar" class="fill"></div></div></div><div class="stat"><label><span>🤖 Страж</span><span id="enemyHp">100 HP</span></label><div class="track"><div id="enemyBar" class="fill enemy"></div></div></div></div>
 <div id="hint">Джойстик — ходьба и бег · Проведи по сцене для поворота камеры · Удар и рывок</div>
 <div id="message" aria-live="polite"></div>
@@ -149,8 +149,8 @@ $('dodge').addEventListener('pointerdown',e=>{
  const now=performance.now();if(now-lastDodge<1800)return;
  lastDodge=now;dodgeUntil=now+560;
  const forward=-stickY,side=stickX;const yaw=camHeading+orbitOffset;
- const vx=Math.sin(yaw)*forward+Math.cos(yaw)*side;
- const vz=Math.cos(yaw)*forward-Math.sin(yaw)*side;
+ const vx=Math.sin(yaw)*forward-Math.cos(yaw)*side;
+ const vz=Math.cos(yaw)*forward+Math.sin(yaw)*side;
  const len=Math.hypot(vx,vz);
  const dx=len>.1?vx/len:Math.sin(hero.root.rotation.y),dz=len>.1?vz/len:Math.cos(hero.root.rotation.y);
  hero.root.position.x=THREE.MathUtils.clamp(hero.root.position.x+dx*2.8,-14,14);
@@ -167,8 +167,8 @@ function tick(now){
   moving=input>.08;
   if(moving){
    const yaw=camHeading+orbitOffset;
-   const vx=Math.sin(yaw)*forward+Math.cos(yaw)*side;
-   const vz=Math.cos(yaw)*forward-Math.sin(yaw)*side;
+   const vx=Math.sin(yaw)*forward-Math.cos(yaw)*side;
+   const vz=Math.cos(yaw)*forward+Math.sin(yaw)*side;
    const dir=Math.atan2(vx,vz);
    hero.root.rotation.y+=deltaAngle(hero.root.rotation.y,dir)*Math.min(1,dt*11);
    speedFactor=Math.min(1,input);
