@@ -1,229 +1,100 @@
 <!doctype html>
-<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#100c21"><title>SkinForge Arena v1.8</title>
+<html lang="ru">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover"><meta name="theme-color" content="#090d20">
+<title>SkinForge 2.0 — 3D Arena</title>
 <style>
-:root{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;color:#f8f5ff;background:#0b0a19}*{box-sizing:border-box}body{margin:0;overflow-x:hidden;background:radial-gradient(ellipse at 50% 0,#382064 0,transparent 55%),#0b0a19}button,input{font:inherit}button{color:inherit;touch-action:manipulation;-webkit-tap-highlight-color:transparent}button:disabled{opacity:.48}main{max-width:520px;min-height:100dvh;margin:auto;padding:16px 13px calc(96px + env(safe-area-inset-bottom))}header{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:7px 0 22px}.brand{font-weight:1000;letter-spacing:.14em;font-size:21px}.brand b{color:#b88aff}.coins{background:#241b3d;border:1px solid #73549a;padding:10px 13px;border-radius:20px;font-weight:850;white-space:nowrap}.tag{display:inline-flex;border:1px solid #715294;border-radius:100px;padding:7px 12px;color:#e2d6ff;font-size:12px;letter-spacing:.08em}h1{font-size:30px;line-height:1.08;margin:12px 0}h2{font-size:21px}.muted{color:#b3a9ce;line-height:1.4}.card{border:1px solid #564071;border-radius:21px;background:linear-gradient(150deg,#271b41,#161429);padding:15px;margin:14px 0;box-shadow:0 9px 30px #0003}.btn{background:linear-gradient(120deg,#7744d9,#a74de1);padding:12px 14px;border-radius:13px;border:0;font-weight:800}.btn.alt{background:#2b2345;border:1px solid #68518b}.btn:active,.control:active{filter:brightness(1.22)}.row{display:flex;gap:10px}.row>*{flex:1;min-width:0}.panel[hidden]{display:none!important}.bar{height:9px;border-radius:30px;background:#3b304d;overflow:hidden}.fill{height:100%;width:100%;background:linear-gradient(90deg,#27cda3,#9bf0a2);transition:width .15s}.fill.enemy{background:linear-gradient(90deg,#fe6681,#ffb16c)}.fill.xp{background:linear-gradient(90deg,#9458fa,#36d9f7)}.stat{display:flex;justify-content:space-between;gap:8px;font-size:13px;font-weight:750;margin:0 0 8px}.mini{font-size:12px;color:#c8bddd}.avatar{--armor:#8662d5;--helm:#b3a6e6;--blade:#55e9ff;position:relative;width:112px;height:145px;transform-origin:50% 90%;filter:drop-shadow(0 0 8px #9579ff85)}.avatar .head{position:absolute;left:38px;top:10px;width:38px;height:42px;border:3px solid #d7c9ff;border-radius:14px 14px 9px 9px;background:var(--helm);z-index:4}.avatar .visor{position:absolute;left:7px;top:17px;width:19px;height:9px;background:#0a1824;box-shadow:0 0 6px #7cf0ff;border-radius:3px}.avatar .chest{position:absolute;left:26px;top:51px;width:61px;height:53px;background:var(--armor);border:4px solid #d1baff;border-radius:18px 18px 10px 10px;z-index:3}.avatar .core{position:absolute;left:22px;top:17px;width:13px;height:13px;transform:rotate(45deg);background:#6cffff;border:3px solid #254677}.avatar .arm{position:absolute;top:58px;width:20px;height:58px;background:var(--armor);border:3px solid #ccb6ff;border-radius:10px;z-index:2}.avatar .arm.left{left:10px;transform:rotate(10deg)}.avatar .arm.right{right:7px;transform:rotate(-13deg)}.avatar .leg{position:absolute;top:98px;width:26px;height:45px;border:3px solid #b6a1df;border-radius:9px;background:#392e55}.avatar .leg.left{left:30px}.avatar .leg.right{right:25px}.avatar .sword{position:absolute;left:84px;top:8px;width:8px;height:98px;transform:rotate(27deg);transform-origin:50% 91%;z-index:5}.avatar .blade{height:76%;background:linear-gradient(90deg,#fff,var(--blade),#17739d);clip-path:polygon(50% 0,100% 21%,100% 100%,0 100%,0 21%);box-shadow:0 0 12px var(--blade)}.avatar .handle{height:27%;background:#bca7fa;border-radius:4px}.avatar.swing .sword{animation:swing .28s ease-out}.avatar.swing{animation:lunge .28s ease-out}.avatar.dodge{animation:dodge .32s ease-out}.avatar.hurt{animation:hurt .24s ease-out}@keyframes swing{0%{transform:rotate(-36deg)}52%{transform:rotate(105deg)}100%{transform:rotate(27deg)}}@keyframes lunge{50%{transform:translateX(19px)}}@keyframes dodge{50%{transform:translateX(-29px) skewX(-10deg);opacity:.55}}@keyframes hurt{30%{filter:brightness(3)}}.hero-display{height:205px;display:grid;place-items:center;overflow:hidden;border-radius:18px;background:radial-gradient(circle,#513882,#131426 75%)}.hero-display .avatar{transform:scale(1.25)}.field{width:100%;margin:12px 0;padding:13px;border:1px solid #70548b;border-radius:13px;background:#181328;color:#fff}.tabsmall{display:flex;overflow:auto;gap:8px;margin:12px 0}.tabsmall button{padding:10px;background:#27213e;border:1px solid #604b81;border-radius:11px;white-space:nowrap}.tabsmall button.selected{background:#6843a8}.items{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.item{border:1px solid #54406d;border-radius:15px;padding:12px;background:#201a35;min-width:0}.item.selected{border-color:#be93ff}.swatch{height:65px;background:radial-gradient(circle,var(--swatch),#171328 78%);display:grid;place-items:center;font-size:34px;border-radius:12px}.item b{font-size:13px;display:block;min-height:35px;margin-top:9px}.item small{color:#c6b9d5;display:block;margin:6px 0}.item button{width:100%;border:0;border-radius:10px;background:#6744b1;padding:10px 4px;font-size:12px;font-weight:800}.quest{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px;background:#211a35;border:1px solid #4f3b69;border-radius:14px;margin:8px 0}.quest button{border:0;background:#6744b1;padding:11px 8px;border-radius:10px;font-size:12px}.quest small{display:block;color:#b8a9d0;margin-top:5px;font-size:11px}.arena-card{padding:12px;margin-top:12px}.enemy-pick[hidden]{display:none!important}.enemy-pick{display:flex;gap:7px;overflow-x:auto;padding:2px 0 10px;scrollbar-width:none}.enemy-pick button{white-space:nowrap;border:1px solid #654e86;background:#201930;padding:10px 12px;border-radius:12px}.enemy-pick button.active{background:#6c45ac}.battlefield{height:236px;border:1px solid #69528a;border-radius:19px;position:relative;overflow:hidden;background:radial-gradient(circle at 50% 18%,#5e40a2 0,#2a1f52 33%,#171527 72%);touch-action:pan-y;margin:10px 0;box-shadow:inset 0 0 0 1px #ffffff08,0 18px 34px #00000036}.battlefield:before{content:"";position:absolute;left:-8%;right:-8%;bottom:12px;height:54px;border-radius:50%;background:radial-gradient(ellipse at center,#191325 0,#0f0b18 54%,transparent 72%);box-shadow:0 -8px 28px #57cbff16 inset}.battlefield:after{content:"";position:absolute;inset:0;background:linear-gradient(#8cc8ff10 1px,transparent 1px),linear-gradient(90deg,#8cc8ff10 1px,transparent 1px),radial-gradient(circle at 18% 20%,#82f0ff18 0,transparent 18%),radial-gradient(circle at 84% 20%,#ff83f01a 0,transparent 18%);background-size:100% 100%,100% 100%,auto,auto,24px 24px,24px 24px;opacity:.65;pointer-events:none}.fighter{position:absolute;bottom:18px;left:0;width:112px;height:145px;will-change:transform;z-index:2}.fighter .avatar{position:absolute;bottom:0;left:0}.opponent{position:absolute;bottom:34px;left:auto;right:18px;width:96px;height:96px;will-change:transform;z-index:2;transform-origin:50% 80%}.opponent::before,.opponent::after{content:"";position:absolute}.opponent.hurt{animation:hit .28s}.opponent.attack{animation:enemyhit .35s}@keyframes hit{30%{filter:brightness(2.6) drop-shadow(0 0 20px #ff6a7f);transform:translateX(13px) scale(1.03)}}@keyframes enemyhit{50%{transform:translateX(-18px) scale(1.05)}}.enemy-sprite{border-radius:28px}.enemy-sprite[data-enemy="drone"]{background:radial-gradient(circle at 50% 35%,#d7fbff 0 18px,#97d7e8 19px 34px,#2c4e6f 35px 36px,transparent 37px),radial-gradient(circle at 25% 24%,#f94154 0 5px,transparent 6px),radial-gradient(circle at 75% 24%,#f94154 0 5px,transparent 6px),radial-gradient(circle at 50% 8%,#ffe580 0 6px,#a06f1f 7px 10px,transparent 11px),radial-gradient(circle at 34% 42%,#c7fbff 0 8px,#47b3d0 9px 12px,transparent 13px),radial-gradient(circle at 66% 42%,#c7fbff 0 8px,#47b3d0 9px 12px,transparent 13px),linear-gradient(#fe8566,#fe8566) 50% 54%/10px 13px no-repeat,radial-gradient(circle at 50% 78%,#ffffff 0 3px,transparent 4px),linear-gradient(90deg,transparent 28px,#273446 28px 31px,transparent 31px 41px,#273446 41px 44px,transparent 44px 52px,#273446 52px 55px,transparent 55px 65px,#273446 65px 68px,transparent 68px) 50% 73%/100% 16px no-repeat;box-shadow:0 0 26px #6ff0ff55}.enemy-sprite[data-enemy="drone"]::before{left:6px;top:35px;width:10px;height:22px;border-radius:6px;background:linear-gradient(#e0465a,#99273a);box-shadow:74px 0 0 #e0465a}.enemy-sprite[data-enemy="drone"]::after{left:14px;bottom:8px;width:68px;height:12px;border-radius:50%;background:radial-gradient(ellipse,#2b213d 0,transparent 70%);opacity:.55}.enemy-sprite[data-enemy="raider"]{background:radial-gradient(circle at 50% 44%,#ffd497 0 8px,transparent 9px),radial-gradient(circle at 34% 42%,#ffffff 0 6px,#ff9a46 7px 12px,transparent 13px),radial-gradient(circle at 66% 42%,#ffffff 0 6px,#ff9a46 7px 12px,transparent 13px),radial-gradient(circle at 50% 62%,#8b2f14 0 10px,transparent 11px),radial-gradient(circle at 50% 50%,#ff746a 0 38px,#962b43 39px 41px,transparent 42px),conic-gradient(from .1turn,#ffca52,#ff8f4f,#ff4f6e,#ffca52);border-radius:50%;box-shadow:0 0 24px #ff845066}.enemy-sprite[data-enemy="raider"]::before{left:16px;top:14px;width:64px;height:64px;border-radius:50%;border:5px solid #ffe5a5;filter:drop-shadow(0 0 6px #ffcb50aa)}.enemy-sprite[data-enemy="raider"]::after{left:37px;top:-2px;width:22px;height:18px;background:linear-gradient(#ffeb99,#d5841d);clip-path:polygon(50% 0,100% 100%,0 100%)}.enemy-sprite[data-enemy="titan"]{width:108px;height:108px;bottom:24px;background:linear-gradient(180deg,#855ff6,#432a7b);border:4px solid #c3a8ff;border-radius:22px;box-shadow:0 0 26px #b67bff55}.enemy-sprite[data-enemy="titan"]::before{left:18px;top:18px;width:68px;height:28px;border-radius:10px;background:linear-gradient(180deg,#2e2147,#171224);box-shadow:inset 0 0 0 3px #8b6fd5,0 32px 0 -8px #6fd0ff}.enemy-sprite[data-enemy="titan"]::after{left:18px;bottom:15px;width:70px;height:22px;background:linear-gradient(90deg,#ff84a2 0 10px,transparent 10px 18px,#ff84a2 18px 28px,transparent 28px 37px,#ff84a2 37px 47px,transparent 47px 55px,#ff84a2 55px 65px);border-radius:10px}.enemy-sprite[data-enemy="void"]{width:108px;height:108px;bottom:22px;border-radius:50%;background:radial-gradient(circle at 48% 48%,#cfffd2 0 5px,transparent 6px),radial-gradient(circle at 42% 42%,#f8fff6 0 8px,#67d39a 9px 15px,transparent 16px),radial-gradient(circle at 61% 57%,#e4fff0 0 7px,#63b2f4 8px 14px,transparent 15px),conic-gradient(from .35turn,#86df5d,#367f2b,#6bc55e,#e8ff8a,#86df5d);box-shadow:0 0 28px #90ff7d5e}.enemy-sprite[data-enemy="void"]::before{left:11px;top:18px;width:86px;height:72px;border:5px solid #8dd96b;border-left-color:transparent;border-bottom-color:#d8ff9c;border-radius:45px 45px 38px 38px;transform:rotate(-24deg)}.enemy-sprite[data-enemy="void"]::after{left:54px;top:14px;width:28px;height:18px;background:radial-gradient(circle,#ffd866 0 5px,transparent 6px),linear-gradient(180deg,#ff8d4a,#ce4f1d);clip-path:polygon(50% 0,100% 56%,77% 100%,23% 100%,0 56%)}.floorname{position:absolute;bottom:4px;font-size:11px;color:#ccbde8}.floorname.left{left:18px}.floorname.right{right:12px}.damage{position:absolute;top:48px;font-size:24px;font-weight:950;pointer-events:none;opacity:0;text-shadow:0 2px 8px #000}.damage.active{animation:float .7s forwards}@keyframes float{0%{opacity:1;transform:translateY(10px)}100%{opacity:0;transform:translateY(-35px)}}.slash{position:absolute;left:50%;top:36px;width:82px;height:110px;border-right:9px solid #87fbff;border-radius:50%;box-shadow:10px 0 22px #45faff99;transform:rotate(48deg);opacity:0;pointer-events:none}.slash.on{animation:slash .3s}@keyframes slash{20%{opacity:1}100%{opacity:0;transform:rotate(-40deg) scale(1.2)}}.battlefield.flash{animation:flash .22s}@keyframes flash{50%{box-shadow:inset 0 0 85px #ffdf7775}}.controls{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin:10px 0}.control{background:#33254e;border:1px solid #74569b;border-radius:13px;padding:12px 3px;min-height:55px;font-size:14px;font-weight:850;user-select:none;-webkit-user-select:none;touch-action:none}.control.primary{background:linear-gradient(125deg,#7642dd,#a24fda)}.control small{display:block;font-size:10px;font-weight:500;margin-top:3px}.abilities{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.abilities button{border-radius:12px;padding:11px 3px;background:#29213f;border:1px solid #705391;font-weight:800;font-size:12px;min-height:59px}.abilities small{display:block;color:#c8b7df;font-size:10px;margin-top:4px}.status{min-height:38px;color:#cdbde6;font-size:12px;margin-top:10px;line-height:1.5}.upgrade{display:flex;justify-content:space-between;align-items:center;gap:12px}.upgrade button{white-space:nowrap}.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#161126f2;backdrop-filter:blur(18px);border-top:1px solid #604378;padding:8px max(9px,calc((100vw - 510px)/2 + 9px)) calc(8px + env(safe-area-inset-bottom));display:flex;gap:3px;z-index:15}.tab{flex:1;min-width:0;border:0;border-radius:13px;background:transparent;padding:8px 1px;color:#c6b9d8;font-size:11px}.tab span{font-size:21px;display:block;margin-bottom:4px}.tab.active{background:#41285f;color:white}.toast{position:fixed;z-index:30;top:18px;left:50%;max-width:94vw;transform:translate(-50%,-120px);background:#32234e;border:1px solid #a17dec;padding:13px;border-radius:14px;text-align:center;transition:.24s}.toast.show{transform:translate(-50%,0)}.modal{position:fixed;inset:0;background:#04030bd9;display:grid;place-items:center;z-index:40;padding:20px}.modal[hidden]{display:none}.modalbox{max-width:380px;width:100%;border:1px solid #b588ed;background:linear-gradient(145deg,#38205b,#171426);padding:24px;border-radius:24px;text-align:center;box-shadow:0 0 65px #7c3ff34f}.modalbox h2{font-size:29px;margin:6px 0}.modalbox button{width:100%;margin-top:15px}.fine{font-size:12px;color:#b6a5d1}@media(max-width:365px){.brand{font-size:18px}.battlefield{height:211px}.control{font-size:12px}.abilities button{font-size:11px}}
-
-/* SkinForge 1.6 mobile combat enhancements */
-.combat-tip{font-size:12px;color:#ecd9ff;min-height:24px;margin:8px 0 0;text-align:center;font-weight:750}
-.battlefield{height:205px;margin:7px 0;touch-action:pan-y}
-.controls{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
-.control{min-height:64px;border-radius:16px;touch-action:none;box-shadow:inset 0 -4px 0 #10091c45}
-.control:active{transform:scale(.95)}
-.abilities button{min-height:51px}
-.opponent.telegraph{filter:drop-shadow(0 0 18px #ff344e) brightness(1.55);animation:warning .24s ease-in-out infinite alternate}
-@keyframes warning{to{filter:drop-shadow(0 0 32px #ff1d38) brightness(2.5);transform:scale(1.13)}}
-.opponent.evading{opacity:.55;filter:drop-shadow(0 0 12px #a582f1)}
-.combo-pop{position:absolute;top:9px;left:50%;transform:translateX(-50%);font-weight:1000;color:#ffda7a;pointer-events:none;text-shadow:0 0 15px #fbd55e;z-index:8}
-.reward-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:15px 0}
-.reward-grid>div{padding:14px 8px;border:1px solid #7850ae;border-radius:15px;background:#2b2145}
-.reward-grid strong{font-size:22px;display:block}.reward-grid small{font-size:12px;color:#c4b3dc;display:block;margin-top:4px}
-.modalbox{max-height:90dvh;overflow:auto}.modalbox h2{color:#f4d6ff}
-@media(max-width:370px){.battlefield{height:190px}.controls{gap:4px}.control{padding:8px 2px;font-size:12px}}
-
-/* v1.7 — визуально выделенный третий удар */
-.avatar.finisher .sword{animation:finisherSword .62s cubic-bezier(.17,.8,.25,1) both!important}
-.avatar.finisher{animation:finisherLunge .62s ease-out both!important;filter:drop-shadow(0 0 18px #ffd36b)}
-@keyframes finisherSword{0%{transform:rotate(-85deg) scale(1.02)}38%{transform:rotate(-115deg) scale(1.1)}65%{transform:rotate(145deg) scale(1.22)}100%{transform:rotate(27deg)}}
-@keyframes finisherLunge{0%{transform:translateX(0) scale(1)}47%{transform:translateX(10px) scale(1.05)}65%{transform:translateX(37px) scale(1.13)}100%{transform:translateX(0) scale(1)}}
-.slash.finisherSlash{left:43%;top:10px;width:130px;height:155px;border-right:15px solid #fff0a1;border-bottom:6px solid #ffab34;box-shadow:15px 0 27px #ffce4eaa;animation:finisherArc .65s ease-out both!important;z-index:8}
-@keyframes finisherArc{0%{opacity:0;transform:rotate(80deg) scale(.5)}25%{opacity:1}65%{opacity:1;transform:rotate(-70deg) scale(1.35)}100%{opacity:0;transform:rotate(-100deg) scale(1.5)}}
-.combo-burst{position:absolute;top:19px;left:50%;z-index:12;transform:translateX(-50%);font-size:25px;font-weight:1000;letter-spacing:.03em;white-space:nowrap;color:#fff4c4;text-shadow:0 0 10px #ffa600,0 0 22px #ff9500,0 2px 2px #4e2200;pointer-events:none;opacity:0}
-.combo-burst.active{animation:comboBurst .95s ease-out forwards}
-@keyframes comboBurst{0%{opacity:0;transform:translate(-50%,25px) scale(.65)}20%{opacity:1;transform:translate(-50%,0) scale(1.22)}70%{opacity:1;transform:translate(-50%,-8px) scale(1)}100%{opacity:0;transform:translate(-50%,-29px) scale(1)}}
-.battlefield.finisherFlash{animation:finisherFlash .65s ease-out!important}
-@keyframes finisherFlash{0%{box-shadow:inset 0 0 0 #ffc54300}35%{box-shadow:inset 0 0 95px #ffc543bb}100%{box-shadow:inset 0 0 0 #ffc54300}} .impact{position:absolute;left:50%;top:50%;width:18px;height:18px;border-radius:50%;background:radial-gradient(circle,#fff7c8 0,#ffd66b 40%,#ff7d47 65%,transparent 70%);opacity:0;transform:translate(-50%,-50%) scale(.3);pointer-events:none;z-index:9}.impact.on{animation:impactPop .34s ease-out}.impact.critical{background:radial-gradient(circle,#fff 0,#ffe586 30%,#ffb038 60%,transparent 70%)}@keyframes impactPop{20%{opacity:1;transform:translate(-50%,-50%) scale(1.4)}100%{opacity:0;transform:translate(-50%,-50%) scale(2.4)}}.particles{position:absolute;left:0;top:0;right:0;bottom:0;pointer-events:none;z-index:7;overflow:hidden}.spark{position:absolute;width:5px;height:18px;border-radius:6px;background:linear-gradient(#fff,#8ff7ff);opacity:0}.spark.on{animation:sparkFly .45s ease-out}.spark.gold{background:linear-gradient(#fff7ba,#ffb446)}@keyframes sparkFly{0%{opacity:1;transform:translate(0,0) rotate(var(--r,0deg)) scale(.6)}100%{opacity:0;transform:translate(var(--tx,18px),var(--ty,-26px)) rotate(var(--r,0deg)) scale(1.4)}}.battlefield .arena-title{position:absolute;left:12px;top:12px;font-size:10px;letter-spacing:.16em;color:#d2c4fa99;text-transform:uppercase;z-index:1}
-@media(prefers-reduced-motion:reduce){.avatar.finisher .sword,.avatar.finisher,.slash.finisherSlash,.combo-burst.active,.battlefield.finisherFlash{animation-duration:.12s!important}}
-
-
-/* v1.7: selectable game modes and progression */
-.modes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:13px 0 8px}
-.mode{background:#251b3d;border:1px solid #66508c;border-radius:14px;padding:11px 8px;text-align:left;min-height:62px;font-weight:800;font-size:13px}
-.mode small{display:block;margin-top:5px;font-size:10px;font-weight:500;color:#c3b4d8;line-height:1.2}
-.mode.selected{background:linear-gradient(130deg,#6d42bc,#4b3087);border-color:#c19fff;box-shadow:0 0 16px #864cce33}
-.mode-status{padding:12px;border:1px solid #574071;background:#1e1831;border-radius:14px;margin:8px 0;font-size:12px;line-height:1.45;color:#d9caee}
-.mode-status b{display:block;font-size:14px;color:#fff;margin-bottom:4px}
-.mode-bar{height:5px;background:#3e3058;border-radius:9px;overflow:hidden;margin-top:9px}.mode-bar i{display:block;height:100%;background:linear-gradient(90deg,#9853f5,#59ddf1);width:0}
-.mode-tag{color:#deb2ff;font-weight:800}.battlefield{height:205px}
-@media(max-width:365px){.mode{font-size:12px;padding:10px 7px}.battlefield{height:190px}}
-</style></head><body><main>
-<header><div class="brand">⚔ SKIN<b>FORGE</b></div><div class="coins">🪙 <span id="coins">200</span></div></header>
-<section class="panel" id="hero"><span class="tag">МОБИЛЬНАЯ ИГРА · V1.8</span><h1>Создай своего <span style="color:#ba8cfb">героя</span></h1><p class="muted">Экипируй героя и выходи на арену.</p><div class="card"><div class="stat"><span>⭐ Уровень <span id="level">1</span></span><span id="xpText">0 / 100 XP</span></div><div class="bar"><div id="xpFill" class="fill xp"></div></div><div class="hero-display"><div id="heroAvatar" class="avatar"></div></div><label for="heroName">Имя персонажа</label><input id="heroName" class="field" maxlength="24" placeholder="Имя героя"><div class="row"><button class="btn" id="saveHero">💾 Сохранить</button><button class="btn alt" id="randomHero">🎲 Образ</button></div></div><h2>Мой гардероб</h2><div id="categories" class="tabsmall"></div><div id="wardrobeItems" class="items"></div></section>
-<section class="panel" id="shop" hidden><span class="tag">МАГАЗИН</span><h1>Новые скины</h1><p class="muted">Покупки только за игровые монеты.</p><div id="shopItems" class="items"></div></section>
-<section class="panel" id="quests" hidden><span class="tag">ЗАДАНИЯ</span><h1>Ежедневные награды</h1><div id="questItems"></div></section>
-<section class="panel" id="arena" hidden><span class="tag">⚔ SKINFORGE ARENA · V1.8</span><h1>Боевая арена</h1><p class="muted">Удерживай стрелки для движения. Выбирай режим и сражайся в реальном времени. Три удара подряд — комбо; красная подсветка — атака врага.</p><div class="modes" id="modePicker" aria-label="Режим игры"><button class="mode selected" data-mode="classic">⚔️ Арена<small>Свободный выбор врага</small></button><button class="mode" data-mode="story">📜 Сюжет<small>5 глав кампании</small></button><button class="mode" data-mode="survival">🌊 Выживание<small>Волны всё сильнее</small></button><button class="mode" data-mode="boss">🐉 Босс<small>Испытание Бездны</small></button></div><div class="mode-status" id="modeStatus" aria-live="polite"></div><div class="enemy-pick" id="enemyPick"></div><div class="card arena-card"><div class="stat"><span>🛡️ <span id="battleName">Неоновый рыцарь</span></span><span id="playerHP">100 / 100 HP</span></div><div class="bar"><div class="fill" id="playerFill"></div></div><div id="battlefield" class="battlefield"><div class="arena-title">Neon combat zone</div><div class="particles" id="particles"></div><div class="fighter" id="fighter"><div id="battleAvatar" class="avatar"></div></div><div id="opponent" class="opponent enemy-sprite" data-enemy="drone" aria-hidden="true"></div><div id="impact" class="impact"></div><div id="slash" class="slash"></div><div id="comboBurst" class="combo-burst" aria-hidden="true">⚡ КОМБО ×3!</div><div id="hitNumber" class="damage" style="right:20px;color:#ffe28a"></div><div id="hurtNumber" class="damage" style="left:18px;color:#ff91aa"></div><span class="floorname left">Твой герой</span><span class="floorname right" id="enemyLabel">Дрон-страж</span></div><div class="stat"><span id="enemyName">🤖 Дрон-страж</span><span id="enemyHP">65 / 65 HP</span></div><div class="bar"><div class="fill enemy" id="enemyFill"></div></div><div class="combat-tip" id="combatTip">⚔️ Комбо: 0 / 3 · Жди подсказки врага</div><div class="controls"><button class="control" id="moveLeft" aria-label="Двигаться влево">◀<small>Влево</small></button><button class="control" id="moveRight" aria-label="Двигаться вправо">▶<small>Вправо</small></button><button class="control primary" id="attack">⚔️<small>Удар</small></button><button class="control" id="dodge">💨<small>Уклон</small></button></div><div class="abilities"><button id="fire">🔥 Огонь<small id="fireCD">Готово</small></button><button id="ice">❄️ Лёд<small id="iceCD">Готово</small></button><button id="power">⚡ Рывок<small id="powerCD">Готово</small></button></div><div id="battleMessage" class="status" role="status">Нажми «Новый бой», чтобы начать.</div><div class="row"><button id="newBattle" class="btn alt">🔄 Новый бой</button><button id="heal" class="btn alt">💚 Лечение</button></div></div><div class="card"><div class="upgrade"><div><b>🗡️ Улучшение оружия</b><div class="fine" id="upgradeText"></div></div><button id="upgrade" class="btn">Улучшить</button></div></div><p class="fine">Враги подсвечиваются красным перед атакой. Уклонение защищает на короткое время и перезаряжается. Удар действует только вблизи. Умения требуют перезарядки. Урон и награды начисляются во время игры.</p></section>
-<section class="panel" id="about" hidden><span class="tag">О ПРОЕКТЕ</span><h1>SkinForge v1.7</h1><div class="card"><p>🎮 Мобильный игровой прототип, работающий без сервера.</p><p>⚔️ Четыре режима: арена, сюжет, выживание и босс.</p><p>💾 Прогресс хранится локально в этом браузере.</p><p class="muted">Нет реальных денежных платежей или аккаунтов. Для сохранения прогресса не очищай данные сайта в Safari.</p></div></section>
-</main><nav class="bottom-nav" aria-label="Разделы"><button class="tab active" data-tab="hero"><span>🧙</span>Герой</button><button class="tab" data-tab="shop"><span>🛍️</span>Магазин</button><button class="tab" data-tab="quests"><span>🎯</span>Задания</button><button class="tab" data-tab="arena"><span>⚔️</span>Арена</button><button class="tab" data-tab="about"><span>⚙️</span>Инфо</button></nav><div class="toast" id="toast" role="status"></div><div class="modal" id="result" hidden><div class="modalbox"><div style="font-size:53px" id="resultEmoji">🏆</div><h2 id="resultTitle">Победа!</h2><p id="resultDesc"></p><div class="reward-grid"><div><strong id="rewardCoins">+0 🪙</strong><small>Монеты</small></div><div><strong id="rewardXP">+0 XP</strong><small>Опыт</small></div></div><p class="fine" id="resultStats"></p><button id="resultNext" class="btn">Следующий бой</button><button id="resultClose" class="btn alt">Закрыть</button></div></div>
-<script>
-'use strict';
-// Do not change this key: earlier SkinForge versions used it.
-const KEY='skinforge_mobile_v11';
+:root{color-scheme:dark;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#080d1c;color:#f4efff;overscroll-behavior:none}button{font:inherit;touch-action:none;-webkit-tap-highlight-color:transparent}#view{position:fixed;inset:0;display:block;width:100%;height:100%;touch-action:none}#hud{position:fixed;inset:0;pointer-events:none;z-index:3}header{position:absolute;left:14px;top:calc(12px + env(safe-area-inset-top));right:14px;display:flex;justify-content:space-between;align-items:center;gap:10px}.logo{font-weight:950;letter-spacing:.12em;text-shadow:0 2px 18px #000;font-size:clamp(15px,4vw,22px)}.logo b{color:#ac88ff}.pill{padding:8px 12px;border:1px solid #7867a1;border-radius:30px;background:#1b1a36cc;font-size:12px;backdrop-filter:blur(12px)}#stats{position:absolute;left:12px;right:12px;top:calc(60px + env(safe-area-inset-top));display:grid;grid-template-columns:1fr 1fr;gap:9px}.stat{padding:10px;background:#141329cb;border:1px solid #65547f;border-radius:14px;backdrop-filter:blur(10px)}.stat label{display:flex;justify-content:space-between;font-weight:750;font-size:12px;gap:6px}.track{margin-top:7px;background:#322a49;height:8px;border-radius:20px;overflow:hidden}.fill{height:100%;width:100%;background:linear-gradient(90deg,#16bda2,#8cfcab);transition:width .13s}.fill.enemy{background:linear-gradient(90deg,#e13d6f,#ff9e75)}#hint{position:absolute;top:calc(151px + env(safe-area-inset-top));left:50%;transform:translateX(-50%);width:min(94vw,440px);text-align:center;color:#e0d3ff;font-size:12px;text-shadow:0 1px 8px #0008}#message{position:absolute;left:50%;top:43%;transform:translate(-50%,-50%);font-size:26px;font-weight:950;text-shadow:0 0 15px #000,0 0 26px #955eff;opacity:0;transition:opacity .12s;text-align:center;min-width:220px}#message.show{opacity:1}#joystick{pointer-events:auto;position:absolute;left:20px;bottom:calc(28px + env(safe-area-inset-bottom));width:138px;height:138px;border-radius:50%;background:#241c4b88;border:2px solid #a78af277;box-shadow:0 0 35px #3922a855, inset 0 0 25px #c8acff10;touch-action:none}#stick{position:absolute;left:50%;top:50%;width:66px;height:66px;border-radius:50%;transform:translate(-50%,-50%);background:radial-gradient(circle at 35% 30%,#b696ff,#653ec2);border:2px solid #dac4ff;box-shadow:0 0 19px #9874ff99;pointer-events:none}#buttons{position:absolute;right:18px;bottom:calc(32px + env(safe-area-inset-bottom));display:flex;gap:12px;align-items:end;pointer-events:auto}.action{width:76px;height:76px;border:1.5px solid #ba97ff;border-radius:50%;color:#fff;background:linear-gradient(155deg,#7c4fe3,#3d276e);box-shadow:0 7px 25px #0006,0 0 19px #a577f34a;display:grid;place-content:center;text-align:center;font-weight:800;font-size:26px;user-select:none}.action small{font-size:11px;font-weight:650;margin-top:3px}.action:active,.action.pressed{filter:brightness(1.4);transform:scale(.95)}#dodge{width:65px;height:65px;background:#252b61;border-color:#74b8f6}#start{position:absolute;top:calc(185px + env(safe-area-inset-top));left:50%;transform:translateX(-50%);pointer-events:auto;border:1px solid #886cc6;color:white;background:#262044dd;border-radius:16px;padding:9px 16px;font-weight:750;font-size:12px}#overlay{position:fixed;inset:0;background:#060817dc;z-index:9;display:grid;place-items:center;padding:22px;backdrop-filter:blur(9px)}#overlay[hidden]{display:none}#modal{width:min(100%,390px);padding:25px 20px;border-radius:26px;border:1px solid #a889e7;background:linear-gradient(150deg,#35245c,#14152c);box-shadow:0 0 60px #733ff044;text-align:center}#modal h1{margin:8px 0;font-size:29px}#modal p{color:#c6b9e0;line-height:1.5}#again{background:linear-gradient(90deg,#814ae1,#ae50e0);color:white;border:0;padding:15px;border-radius:14px;width:100%;font-weight:850}#loading{position:fixed;inset:0;background:#0b0b22;display:grid;place-items:center;z-index:11;font-size:16px;padding:25px;text-align:center}#loading[hidden]{display:none}#error{display:block;color:#ffb1c5;font-size:12px;margin-top:12px}#footer{position:absolute;bottom:calc(181px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);font-size:11px;color:#c8c1df99;white-space:nowrap}@media(max-width:375px){#joystick{width:120px;height:120px;left:12px}#buttons{right:9px;gap:8px}.action{width:67px;height:67px}#dodge{width:57px;height:57px}#stats{top:calc(56px + env(safe-area-inset-top))}#hint{top:calc(140px + env(safe-area-inset-top));font-size:11px}#start{top:calc(181px + env(safe-area-inset-top))}}@media(max-height:680px){#hint{display:none}#start{top:calc(135px + env(safe-area-inset-top))}#footer{display:none}}
+</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js"}}</script>
+</head>
+<body>
+<canvas id="view" aria-label="3D-арена SkinForge"></canvas>
+<div id="loading">Загружаем трёхмерную арену…<span id="error"></span></div>
+<div id="hud">
+<header><div class="logo">⚔️ SKIN<b>FORGE</b> <span style="font-size:10px;color:#d6c0ff">3D</span></div><div class="pill">ПРОТОТИП 2.0.1</div></header>
+<div id="stats"><div class="stat"><label><span>🛡️ Герой</span><span id="heroHp">100 HP</span></label><div class="track"><div id="heroBar" class="fill"></div></div></div><div class="stat"><label><span>🤖 Страж</span><span id="enemyHp">100 HP</span></label><div class="track"><div id="enemyBar" class="fill enemy"></div></div></div></div>
+<div id="hint">Джойстик — движение · Удар — атака вблизи · Рывок — уклонение</div>
+<div id="message" aria-live="polite"></div>
+<button id="start" type="button">↻ Новый бой</button>
+<div id="joystick" aria-label="Джойстик управления"><div id="stick"></div></div>
+<div id="buttons"><button id="dodge" class="action" type="button">💨<small>Рывок</small></button><button id="attack" class="action" type="button">⚔️<small>Удар</small></button></div>
+<div id="footer">Отдельная 3D-демоверсия · прогресс 2D не затрагивается</div>
+</div>
+<div id="overlay" hidden><div id="modal"><div style="font-size:60px" id="resultIcon">🏆</div><h1 id="resultTitle">Победа!</h1><p id="resultText"></p><button id="again" type="button">Новый бой</button></div></div>
+<script type="module">
+import * as THREE from 'three';
 const $=id=>document.getElementById(id);
-const catalog=[{id:'armor_base',type:'armor',name:'Стартовая броня',color:'#8662d5',icon:'🛡️',price:0},{id:'armor_fire',type:'armor',name:'Огненный страж',color:'#e9634e',icon:'🔥',price:120},{id:'armor_ice',type:'armor',name:'Ледяной рыцарь',color:'#57bfe9',icon:'❄️',price:160},{id:'armor_gold',type:'armor',name:'Золотой титан',color:'#e9b84e',icon:'👑',price:220},{id:'helm_base',type:'helm',name:'Шлем новичка',color:'#b3a6e6',icon:'🪖',price:0},{id:'helm_shadow',type:'helm',name:'Тёмный визор',color:'#514c75',icon:'🥷',price:100},{id:'helm_sun',type:'helm',name:'Солнечный шлем',color:'#f1c66b',icon:'🌟',price:140},{id:'weapon_base',type:'weapon',name:'Энергоклинок',color:'#55e9ff',icon:'⚔️',price:0},{id:'weapon_ember',type:'weapon',name:'Пламенный меч',color:'#ff7a55',icon:'🗡️',price:130},{id:'weapon_void',type:'weapon',name:'Клинок бездны',color:'#b77aff',icon:'✨',price:190}];
-const defaults=()=>({coins:200,xp:0,name:'Неоновый рыцарь',owned:['armor_base','helm_base','weapon_base'],equipped:{armor:'armor_base',helm:'helm_base',weapon:'weapon_base'},claims:{},wins:0,weaponLevel:0,storyStage:0,bestWave:0,bossWins:0});
-let state=defaults();try{const old=JSON.parse(localStorage.getItem(KEY));if(old&&typeof old==='object'&&!Array.isArray(old)){state={...state,...old,equipped:{...state.equipped,...(old.equipped||{})},claims:{...state.claims,...(old.claims||{})}}}}catch(e){}
-if(!Array.isArray(state.owned))state.owned=[...defaults().owned];for(const id of defaults().owned){if(!state.owned.includes(id))state.owned.push(id)}
-if(!Number.isFinite(state.coins)||state.coins<0)state.coins=200;if(!Number.isFinite(state.xp)||state.xp<0)state.xp=0;
-// Support alternate field names of older Arena builds without destroying unknown fields.
-if(!Number.isFinite(state.weaponLevel))state.weaponLevel=Number.isFinite(state.swordLevel)?state.swordLevel:0;
-state.weaponLevel=Math.max(0,Math.min(5,Math.floor(state.weaponLevel)));
-if(!Number.isFinite(state.wins))state.wins=Number.isFinite(state.arenaWins)?state.arenaWins:0;
-for(const field of ['storyStage','bestWave','bossWins']){if(!Number.isFinite(state[field])||state[field]<0)state[field]=0;state[field]=Math.floor(state[field])}
-state.storyStage=Math.min(5,state.storyStage);
-const item=id=>catalog.find(x=>x.id===id);
-function persist(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){toast('Safari не сохранил прогресс')}}
-let toastTimeout;function toast(message){$('toast').textContent=message;$('toast').classList.add('show');clearTimeout(toastTimeout);toastTimeout=setTimeout(()=>$('toast').classList.remove('show'),1900)}
-function avatarMarkup(){return '<div class="sword"><div class="blade"></div><div class="handle"></div></div><div class="leg left"></div><div class="leg right"></div><div class="arm left"></div><div class="arm right"></div><div class="chest"><div class="core"></div></div><div class="head"><div class="visor"></div></div>'}
-$('heroAvatar').innerHTML=avatarMarkup();$('battleAvatar').innerHTML=avatarMarkup();
-function avatarColor(){for(const id of ['heroAvatar','battleAvatar']){const el=$(id);el.style.setProperty('--armor',item(state.equipped.armor)?.color||'#8662d5');el.style.setProperty('--helm',item(state.equipped.helm)?.color||'#b3a6e6');el.style.setProperty('--blade',item(state.equipped.weapon)?.color||'#55e9ff')}}
-function renderStats(){avatarColor();$('coins').textContent=state.coins.toLocaleString('ru-RU');$('level').textContent=Math.floor(state.xp/100)+1;$('xpText').textContent=(state.xp%100)+' / 100 XP';$('xpFill').style.width=(state.xp%100)+'%';$('battleName').textContent=state.name||'Герой';if(document.activeElement!==$('heroName'))$('heroName').value=state.name}
-let category='armor';const types={armor:'🛡 Броня',helm:'🪖 Шлем',weapon:'⚔️ Оружие'};
-function makeCard(x){const owned=state.owned.includes(x.id),selected=state.equipped[x.type]===x.id,el=document.createElement('article');el.className='item'+(selected?' selected':'');const sw=document.createElement('div');sw.className='swatch';sw.style.setProperty('--swatch',x.color);sw.textContent=x.icon;const title=document.createElement('b');title.textContent=x.name;const txt=document.createElement('small');txt.textContent=owned?'В коллекции':'🪙 '+x.price;const btn=document.createElement('button');btn.textContent=selected?'Надето':owned?'Надеть':'Купить · '+x.price+' 🪙';btn.disabled=selected;btn.onclick=()=>{if(!state.owned.includes(x.id)){if(state.coins<x.price){toast('Не хватает монет');return}state.coins-=x.price;state.owned.push(x.id)}state.equipped[x.type]=x.id;persist();render();toast('Экипировка обновлена')};el.append(sw,title,txt,btn);return el}
-function renderItems(){const cats=$('categories');cats.replaceChildren();Object.entries(types).forEach(([key,label])=>{const btn=document.createElement('button');btn.textContent=label;btn.className=key===category?'selected':'';btn.onclick=()=>{category=key;renderItems()};cats.append(btn)});$('wardrobeItems').replaceChildren(...catalog.filter(x=>x.type===category&&state.owned.includes(x.id)).map(makeCard));$('shopItems').replaceChildren(...catalog.filter(x=>x.price>0).map(makeCard))}
-const quests=[{id:'visit',name:'Ежедневный бонус',desc:'Войди в игру',coins:50,xp:20},{id:'style',name:'Мастер стиля',desc:'Сохрани имя героя',coins:35,xp:30},{id:'collector',name:'Коллекционер',desc:'Собери 4 предмета',coins:75,xp:40}];
-function day(){const d=new Date();return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')}
-function renderQuests(){const root=$('questItems');root.replaceChildren();for(const q of quests){const done=state.claims[q.id]===day(),ready=q.id==='visit'||q.id==='style'&&state.claims.style_ready===true||q.id==='collector'&&state.owned.length>=4;const el=document.createElement('div');el.className='quest';const info=document.createElement('div');const b=document.createElement('b');b.textContent=q.name;const s=document.createElement('small');s.textContent=q.desc+' · +'+q.coins+' 🪙 · +'+q.xp+' XP';info.append(b,s);const btn=document.createElement('button');btn.textContent=done?'Получено':ready?'Забрать':'Закрыто';btn.disabled=done||!ready;btn.onclick=()=>{if(state.claims[q.id]===day())return;state.claims[q.id]=day();state.coins+=q.coins;state.xp+=q.xp;persist();render();toast('Награда получена!')};el.append(info,btn);root.append(el)}}
-function renderUpgrade(){const cost=50+state.weaponLevel*45;$('upgradeText').textContent='Уровень меча: '+state.weaponLevel+'/5 · бонус +'+(state.weaponLevel*3)+' урона'+(state.weaponLevel<5?' · цена '+cost+' 🪙':' · максимум');$('upgrade').textContent=state.weaponLevel===5?'Максимум':'🪙 '+cost;$('upgrade').disabled=state.weaponLevel>=5||state.coins<cost}
-function render(){renderStats();renderItems();renderQuests();renderUpgrade()}
-$('saveHero').onclick=()=>{const n=$('heroName').value.trim();if(!n){toast('Введите имя');return}state.name=n;state.claims.style_ready=true;persist();render();toast('Герой сохранён')};$('randomHero').onclick=()=>{for(const type of Object.keys(types)){const choices=catalog.filter(x=>x.type===type&&state.owned.includes(x.id));state.equipped[type]=choices[Math.floor(Math.random()*choices.length)].id}persist();render();toast('Новый образ')};$('upgrade').onclick=()=>{const cost=50+state.weaponLevel*45;if(state.weaponLevel>=5||state.coins<cost)return;state.coins-=cost;state.weaponLevel++;persist();render();toast('Меч усилен до уровня '+state.weaponLevel)};
-const enemies=[{id:'drone',name:'Дрон-страж',icon:'🤖',hp:65,damage:7,speed:55,coins:25,xp:20},{id:'raider',name:'Пустынный рейдер',icon:'👹',hp:100,damage:10,speed:70,coins:40,xp:30},{id:'titan',name:'Кибер-титан',icon:'👾',hp:145,damage:13,speed:48,coins:65,xp:45},{id:'void',name:'Повелитель Бездны',icon:'🐉',hp:185,damage:17,speed:65,coins:110,xp:80}];
-const storyChapters=[
- {name:'Пробуждение',enemy:0,desc:'Первый бой на заброшенной станции'},
- {name:'Красные пески',enemy:1,desc:'Рейдеры охраняют путь через пустыню'},
- {name:'Стальная крепость',enemy:2,desc:'Пройди защиту кибер-титана'},
- {name:'Тень портала',enemy:1,desc:'Прерви атаку разведчика Бездны'},
- {name:'Сердце Бездны',enemy:3,desc:'Победи Повелителя Бездны'}
-];
-let mode='classic',wave=1;
-function stageEnemy(){
- if(mode==='story')return storyChapters[Math.min(4,state.storyStage)].enemy;
- if(mode==='boss')return 3;
- if(mode==='survival')return [0,1,0,2,1,3][(wave-1)%6];
- return enemyIndex;
+const renderer=new THREE.WebGLRenderer({canvas:$('view'),antialias:true,alpha:false,powerPreference:'high-performance'});
+renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.7));renderer.setSize(innerWidth,innerHeight);renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.outputColorSpace=THREE.SRGBColorSpace;
+const scene=new THREE.Scene();scene.background=new THREE.Color(0x090c20);scene.fog=new THREE.FogExp2(0x10152b,.027);
+const camera=new THREE.PerspectiveCamera(63,innerWidth/innerHeight,.08,125);
+scene.add(new THREE.HemisphereLight(0x9bc7ff,0x242036,2));
+const sun=new THREE.DirectionalLight(0xc8b0ff,2.8);sun.position.set(-5,11,8);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);sun.shadow.camera.left=-16;sun.shadow.camera.right=16;sun.shadow.camera.top=16;sun.shadow.camera.bottom=-16;scene.add(sun);
+const accent=new THREE.PointLight(0x32f5ff,24,22);accent.position.set(6,4,-7);scene.add(accent);
+const material=(color,metalness=.2,roughness=.42)=>new THREE.MeshStandardMaterial({color,metalness,roughness});
+const floorMat=material(0x26203e,.55,.65),wallMat=material(0x272043,.48,.6);
+function block(w,h,d,x,y,z,mat,parent=scene){const obj=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat);obj.position.set(x,y,z);obj.castShadow=true;obj.receiveShadow=true;parent.add(obj);return obj}
+const floor=block(36,.5,36,0,-.28,0,floorMat);floor.castShadow=false;
+const grid=new THREE.GridHelper(36,36,0x7047a8,0x413267);grid.position.y=.01;scene.add(grid);
+for(let i=-15;i<=15;i+=6){const p=block(2,.12,2,i,0.02,-14,material(0x40315c));p.castShadow=false}
+for(const z of [-17.5,17.5]){block(36,2,.7,0,1,z,wallMat)}
+for(const x of [-17.5,17.5]){block(.7,2,36,x,1,0,wallMat)}
+const glowMat=new THREE.MeshBasicMaterial({color:0x9c64ff});
+for(const z of [-17,17])block(34,.09,.15,0,1.35,z,glowMat);
+for(const x of [-17,17])block(.15,.09,34,x,1.35,0,glowMat);
+for(const [x,z] of [[-14,-14],[14,-14],[-14,14],[14,14]]){
+ const pillar=block(1.1,5,1.1,x,2.5,z,material(0x30245c));block(1.25,.12,1.25,x,4.7,z,new THREE.MeshBasicMaterial({color:0x55e5ff}));
 }
-function modeMultiplier(){return mode==='survival'?1+Math.floor((wave-1)/3)*.3+(wave-1)*.06:mode==='boss'?1.22:1}
-function currentEnemy(){const e=enemies[stageEnemy()];const mult=modeMultiplier();return {...e,hp:Math.round(e.hp*mult),damage:Math.round(e.damage*(1+(mult-1)*.65)),coins:Math.round(e.coins*(mode==='survival'?0.65+wave*.1:mode==='story'?1.15:mode==='boss'?1.35:1)),xp:Math.round(e.xp*(mode==='survival'?0.75+wave*.08:mode==='story'?1.2:mode==='boss'?1.3:1))}}
-function showMode(){
- const buttons=document.querySelectorAll('[data-mode]');buttons.forEach(x=>x.classList.toggle('selected',x.dataset.mode===mode));
- $('enemyPick').hidden=mode!=='classic';
- const title={classic:'Свободная арена',story:'Сюжетная кампания',survival:'Режим выживания',boss:'Испытание босса'}[mode];
- let desc='';let progress=0;
- if(mode==='classic')desc='Выбирай врага и тренируй комбо. Победы и награды сохраняются.';
- if(mode==='story'){const n=Math.min(4,state.storyStage);const q=storyChapters[n];desc=state.storyStage>=5?'Кампания пройдена! Можно повторять финальную главу.':'Глава '+(n+1)+'/5: '+q.name+' — '+q.desc;progress=state.storyStage*20}
- if(mode==='survival'){desc='Волна '+wave+' · личный рекорд: '+state.bestWave+' · после победы следующая волна становится сильнее.';progress=Math.min(100,wave*10)}
- if(mode==='boss'){desc='Повелитель Бездны усилен. Побед над боссом: '+state.bossWins;progress=Math.min(100,state.bossWins*10)}
- $('modeStatus').innerHTML='<b>'+title+'</b><span>'+desc+'</span><div class="mode-bar"><i style="width:'+progress+'%"></i></div>';
-}
-let enemyIndex=0;let battle=null;let held=0;let activeTab='hero';let lastFrame=0;let raf=0;
-const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
-function bounds(){return Math.max(210,$('battlefield').clientWidth)}
-function createBattle(){const e=currentEnemy();battle={playing:true,hp:100,maxHP:100,enemyHP:e.hp,px:16,ex:bounds()-80,lastAttack:0,enemyHitAt:performance.now()+1000,fireAt:0,iceAt:0,powerAt:0,dodgeAt:0,invulnerableUntil:0,frozenUntil:0,healUsed:false,lastMove:0,combo:0,comboUntil:0,attacks:0,dodges:0,enemyHits:0,enemyWindup:0,enemyPending:false,enemySidestepAt:performance.now()+2200,enemyStrafeUntil:0,enemyStrafeDir:1};held=0;$('result').hidden=true;$('opponent').classList.remove('telegraph','evading');$('combatTip').textContent='⚔️ Комбо: 0 / 3 · Следи за красной подсветкой';showBattle();message('Бой начался! Удерживай ◀ ▶ для движения.');showMode();}
-function message(msg){$('battleMessage').textContent=msg}
-function setEnemyVisual(id){const op=$('opponent');op.dataset.enemy=id;if(id==='titan'||id==='void'){op.style.width='108px';op.style.height='108px'}else{op.style.width='96px';op.style.height='96px'}}
-function burstImpact(critical){const el=$('impact');el.classList.remove('on','critical');void el.offsetWidth;if(critical)el.classList.add('critical');el.classList.add('on');const p=$('particles');p.replaceChildren();for(let i=0;i<8;i++){const s=document.createElement('span');s.className='spark'+(critical?' gold':'');s.style.left=(battle.ex+38)+'px';s.style.top='74px';s.style.setProperty('--tx',(Math.random()*70-35).toFixed(0)+'px');s.style.setProperty('--ty',(-20-Math.random()*55).toFixed(0)+'px');s.style.setProperty('--r',(Math.random()*150-75).toFixed(0)+'deg');p.append(s);requestAnimationFrame(()=>s.classList.add('on'));setTimeout(()=>s.remove(),500)}}
-function showBattle(){if(!battle)return;const b=battle,e=currentEnemy(),w=bounds();b.ex=clamp(b.ex,45,w-95);b.px=clamp(b.px,0,w-115);$('fighter').style.transform='translateX('+b.px+'px)';$('opponent').style.right='auto';$('opponent').style.left=b.ex+'px';setEnemyVisual(e.id);$('playerHP').textContent=Math.ceil(b.hp)+' / 100 HP';$('playerFill').style.width=clamp(b.hp,0,100)+'%';$('enemyHP').textContent=Math.max(0,Math.ceil(b.enemyHP))+' / '+e.hp+' HP';$('enemyFill').style.width=clamp(100*b.enemyHP/e.hp,0,100)+'%';$('enemyName').textContent=e.icon+' '+e.name;$('enemyLabel').textContent=e.name;$('opponent').textContent='';}
-function animateOne(id,klass){const el=$(id);el.classList.remove(klass);void el.offsetWidth;el.classList.add(klass);setTimeout(()=>el.classList.remove(klass),390)}
-function animateEffect(id,klass,ms){const el=$(id);el.classList.remove(klass);void el.offsetWidth;el.classList.add(klass);setTimeout(()=>el.classList.remove(klass),ms)}
-function floating(id,amount){const el=$(id);el.textContent=amount;el.classList.remove('active');void el.offsetWidth;el.classList.add('active')}
-function deal(amount,kind){if(!battle?.playing)return;const b=battle;const critical=Math.random()<.17;const dmg=Math.round(amount*(critical?1.65:1));b.enemyHP=Math.max(0,b.enemyHP-dmg);animateOne('opponent','hurt');animateOne('battlefield','flash');burstImpact(critical);floating('hitNumber',(critical?'КРИТ! ':'')+'−'+dmg);message(kind+(critical?' · Критический удар!':''));showBattle();if(b.enemyHP<=0)endBattle(true)}
-function distance(){return battle?Math.abs((battle.px+95)-(battle.ex+22)):999}
-function attack(){
- if(!battle?.playing)return;
- const b=battle,now=performance.now();if(now-b.lastAttack<300)return;
- if(now>b.comboUntil)b.combo=0;
- b.combo=(b.combo%3)+1;b.comboUntil=now+1050;b.lastAttack=now;b.attacks++;
- const finish=b.combo===3;
- if(finish){
-   animateEffect('battleAvatar','finisher',680);
-   animateEffect('slash','finisherSlash',680);
-   animateEffect('battlefield','finisherFlash',680);
-   const burst=$('comboBurst');burst.classList.remove('active');void burst.offsetWidth;burst.classList.add('active');
-   setTimeout(()=>burst.classList.remove('active'),980);
- }else{
-   animateOne('battleAvatar','swing');animateOne('slash','on');
+const ringMat=new THREE.MeshBasicMaterial({color:0x7153f8,side:THREE.DoubleSide});const ring=new THREE.Mesh(new THREE.RingGeometry(6.5,6.58,72),ringMat);ring.rotation.x=-Math.PI/2;ring.position.y=.035;scene.add(ring);
+const sphere=(r,m,x,y,z,parent)=>{const o=new THREE.Mesh(new THREE.SphereGeometry(r,14,10),m);o.position.set(x,y,z);o.castShadow=true;parent.add(o);return o};
+function actor(isHero){const root=new THREE.Group();scene.add(root);const armor=material(isHero?0x37baf3:0xee525f,.62,.26),dark=material(0x272449,.55,.33),trim=material(isHero?0xd1c1ff:0xffbc8e,.6,.27),glow=new THREE.MeshBasicMaterial({color:isHero?0x65ffff:0xff846b});
+ const torso=block(1.05,1.35,.65,0,1.85,0,armor,root);block(.7,.13,.73,0,2.43,0,trim,root);
+ block(.88,.78,.78,0,2.93,0,trim,root);block(.7,.2,.10,0,2.94,.41,dark,root);block(.24,.13,.055,0,2.96,.47,glow,root);
+ block(.37,.9,.45,-.75,1.9,0,armor,root);block(.37,.9,.45,.75,1.9,0,armor,root);
+ for(const x of [-.32,.32]){block(.39,.95,.49,x,.76,0,dark,root);block(.44,.17,.5,x,.24,.07,trim,root)}
+ const core=sphere(.17,glow,0,1.93,.37,root);const hand=new THREE.Group();hand.position.set(.77,1.85,.05);root.add(hand);
+ if(isHero){block(.14,1.6,.18,.12,.5,.04,glow,hand);block(.55,.11,.24,.12,-.2,.04,trim,hand)}else{block(.45,.3,.4,.05,-.1,.1,trim,hand);sphere(.18,glow,.08,-.25,.25,hand)}
+ const shadow=new THREE.Mesh(new THREE.CircleGeometry(.88,26),new THREE.MeshBasicMaterial({color:0x050512,transparent:true,opacity:.4,depthWrite:false}));shadow.rotation.x=-Math.PI/2;shadow.position.y=.02;root.add(shadow);
+ return {root,hand,torso,core};}
+const hero=actor(true),enemy=actor(false);hero.root.position.set(0,0,6);enemy.root.position.set(0,0,-5);
+const hitFlash=new THREE.PointLight(0xffe58a,0,5);scene.add(hitFlash);
+const effectMat=new THREE.MeshBasicMaterial({color:0xffe38a,transparent:true,opacity:.8,depthWrite:false});
+const hitOrb=sphere(.35,effectMat,0,1.8,0,scene);hitOrb.visible=false;
+let hp=100,enemyHP=100,wins=0,playing=true,lastAttack=0,lastDodge=0,lastEnemyAttack=0,attackAnim=0,enemyAnim=0,dodgeUntil=0,damageFlash=0,popUntil=0,messageTimeout=0;
+let stickX=0,stickY=0,joyPointer=null;const joy=$('joystick'),knob=$('stick');
+function joystick(e){const rect=joy.getBoundingClientRect(),cx=rect.left+rect.width/2,cy=rect.top+rect.height/2,dx=e.clientX-cx,dy=e.clientY-cy,r=rect.width*.34,length=Math.hypot(dx,dy),scale=Math.min(1,r/Math.max(length,1));stickX=dx*scale/r;stickY=dy*scale/r;knob.style.transform=`translate(calc(-50% + ${dx*scale}px),calc(-50% + ${dy*scale}px))`}
+joy.addEventListener('pointerdown',e=>{e.preventDefault();joyPointer=e.pointerId;joy.setPointerCapture(e.pointerId);joystick(e)});
+joy.addEventListener('pointermove',e=>{if(e.pointerId===joyPointer)joystick(e)});
+function clearJoy(e){if(e&&joyPointer!==e.pointerId)return;joyPointer=null;stickX=stickY=0;knob.style.transform='translate(-50%,-50%)'}
+joy.addEventListener('pointerup',clearJoy);joy.addEventListener('pointercancel',clearJoy);window.addEventListener('blur',()=>clearJoy());
+function say(text){$('message').textContent=text;$('message').classList.add('show');clearTimeout(messageTimeout);messageTimeout=setTimeout(()=>$('message').classList.remove('show'),650)}
+function ui(){$('heroHp').textContent=Math.max(0,Math.ceil(hp))+' HP';$('heroBar').style.width=Math.max(0,hp)+'%';$('enemyHp').textContent=Math.max(0,Math.ceil(enemyHP))+' HP';$('enemyBar').style.width=Math.max(0,enemyHP)+'%'}
+function stop(win){playing=false;$('overlay').hidden=false;$('resultIcon').textContent=win?'🏆':'💔';$('resultTitle').textContent=win?'ПОБЕДА!':'ПОРАЖЕНИЕ';$('resultText').textContent=win?'Страж побеждён. Ты успешно прошёл первую 3D-арену!':'Страж оказался сильнее. Попробуй уклоняться перед ударами.';if(win){wins++;try{localStorage.setItem('skinforge_3d_demo_v20',String(wins))}catch{}}}
+function reset(){hp=enemyHP=100;playing=true;hero.root.position.set(0,0,6);enemy.root.position.set(0,0,-5);lastAttack=lastDodge=lastEnemyAttack=0;attackAnim=enemyAnim=0;dodgeUntil=0;$('overlay').hidden=true;ui();say('БОЙ НАЧАЛСЯ')}
+$('start').addEventListener('click',reset);$('again').addEventListener('click',reset);
+$('attack').addEventListener('pointerdown',e=>{e.preventDefault();if(!playing)return;const now=performance.now();if(now-lastAttack<490)return;lastAttack=now;attackAnim=now;const dist=hero.root.position.distanceTo(enemy.root.position);if(dist<3.1){enemyHP=Math.max(0,enemyHP-20);damageFlash=now;hitOrb.position.copy(enemy.root.position).add(new THREE.Vector3(0,1.7,0));hitOrb.visible=true;popUntil=now+190;hitFlash.position.copy(hitOrb.position);say('−20 HP');ui();if(enemyHP<=0)stop(true)}else say('ПОДОЙДИ БЛИЖЕ')});
+$('dodge').addEventListener('pointerdown',e=>{e.preventDefault();if(!playing)return;const now=performance.now();if(now-lastDodge<1800)return;lastDodge=now;dodgeUntil=now+560;const x=stickX,z=stickY;const len=Math.hypot(x,z)||1;const dx=len>0.05?x/len:1,dz=len>0.05?z/len:0;hero.root.position.x=THREE.MathUtils.clamp(hero.root.position.x+dx*2.6,-14,14);hero.root.position.z=THREE.MathUtils.clamp(hero.root.position.z+dz*2.6,-14,14);say('УКЛОНЕНИЕ')});
+function tick(now){requestAnimationFrame(tick);const dt=Math.min(.05,(now-(tick.last||now))/1000);tick.last=now;
+ if(playing){const hx=hero.root.position.x,hz=hero.root.position.z;const moving=Math.hypot(stickX,stickY)>.08;
+  if(moving){const speed=6.1;hero.root.position.x=THREE.MathUtils.clamp(hx+stickX*speed*dt,-15.2,15.2);hero.root.position.z=THREE.MathUtils.clamp(hz+stickY*speed*dt,-15.2,15.2);hero.root.rotation.y=Math.atan2(stickX,stickY);}
+  else{const dx=enemy.root.position.x-hx,dz=enemy.root.position.z-hz;hero.root.rotation.y=THREE.MathUtils.lerp(hero.root.rotation.y,Math.atan2(dx,dz),.06)}
+  const dx=hero.root.position.x-enemy.root.position.x,dz=hero.root.position.z-enemy.root.position.z,dist=Math.hypot(dx,dz);
+  enemy.root.rotation.y=Math.atan2(dx,dz);
+  if(dist>2.25){const speed=2.25;enemy.root.position.x+=dx/dist*speed*dt;enemy.root.position.z+=dz/dist*speed*dt}
+  else if(now-lastEnemyAttack>1500){lastEnemyAttack=now;enemyAnim=now;if(now>dodgeUntil){hp=Math.max(0,hp-11);say('−11 HP');ui();if(hp<=0)stop(false)}else say('УКЛОН!')}
+  const bounce=moving?Math.sin(now*.012)*.065:Math.sin(now*.002)*.025;hero.torso.position.y=1.85+bounce;
+  hero.hand.rotation.x=now-attackAnim<270?-Math.sin((now-attackAnim)/270*Math.PI)*1.8:0;
+  enemy.hand.rotation.x=now-enemyAnim<320?-Math.sin((now-enemyAnim)/320*Math.PI)*1.6:0;
+  enemy.torso.material.emissive=new THREE.Color(now-damageFlash<160?0x551c1c:0x000000);
  }
- $('combatTip').textContent='⚔️ Комбо: '+b.combo+' / 3'+(finish?' · ⚡ ФИНИШЕР!':'');
- if(distance()>113){message('Подойди ближе: удар не достал!');return}
- deal(10+state.weaponLevel*3+Math.floor(Math.random()*5)+(finish?15:0),finish?'💥 Комбо-финишер':'⚔️ Удар '+b.combo+'/3');
- if(finish&&battle?.playing){b.enemyWindup=0;b.enemyPending=false;$('opponent').classList.remove('telegraph')}
+ if(now>popUntil)hitOrb.visible=false;hitFlash.intensity=hitOrb.visible?16:0;
+ const target=hero.root.position.clone().add(new THREE.Vector3(0,3.65,8.3));camera.position.lerp(target,Math.min(1,dt*4.2));const aim=hero.root.position.clone().add(new THREE.Vector3(0,1.6,-3));camera.lookAt(aim);
+ renderer.render(scene,camera)
 }
-function dodge(){
- if(!battle?.playing)return;const now=performance.now(),b=battle;
- if(now<b.dodgeAt){message('Уклонение перезаряжается');return}
- b.dodgeAt=now+2400;b.invulnerableUntil=now+680;b.dodges++;
- const move=(b.ex>b.px+60?-1:1)*48;
- b.px=clamp(b.px+move,0,bounds()-115);
- animateOne('battleAvatar','dodge');message('💨 Уклонение: неуязвимость 0,68 сек');showBattle()
-}
-function ability(type){if(!battle?.playing)return;const now=performance.now(),b=battle;if(type==='fire'){if(now<b.fireAt)return;b.fireAt=now+6500;animateOne('slash','on');deal(22+state.weaponLevel*3,'🔥 Огненный удар')}if(type==='ice'){if(now<b.iceAt)return;b.iceAt=now+8500;b.frozenUntil=now+2500;deal(13+state.weaponLevel*2,'❄️ Заморозка на 2.5 секунды')}if(type==='power'){if(now<b.powerAt)return;b.powerAt=now+10000;b.px=clamp(b.ex-86,0,bounds()-115);showBattle();animateOne('battleAvatar','swing');animateOne('slash','on');deal(29+state.weaponLevel*4,'⚡ Мощный рывок')}}
-function endBattle(win){
- if(!battle?.playing)return;
- const b=battle;b.playing=false;held=0;b.enemyPending=false;
- $('opponent').classList.remove('telegraph','evading');
- const e=currentEnemy();const wonStage=state.storyStage;const completedWave=wave;
- if(win){
-  state.coins+=e.coins;state.xp+=e.xp;state.wins=(Number(state.wins)||0)+1;state.arenaWins=state.wins;
-  if(mode==='story'&&state.storyStage<5)state.storyStage++;
-  if(mode==='survival'){state.bestWave=Math.max(state.bestWave,wave);wave++}
-  if(mode==='boss')state.bossWins++;
-  persist();render();showMode();
- }
-
- $('resultEmoji').textContent=win?'🏆':'💔';
- $('resultTitle').textContent=win?'ПОБЕДА!':'ПОРАЖЕНИЕ';
- $('resultDesc').textContent=win?(mode==='story'?'Глава '+(Math.min(5,wonStage+1))+' пройдена! · '+e.name+' побеждён':mode==='survival'?'Волна '+completedWave+' пройдена! · '+e.name+' побеждён':mode==='boss'?'Повелитель Бездны повержен!':'Противник '+e.name+' побеждён!'):'Поражение. Награды и покупки сохранены.';
- $('rewardCoins').textContent=win?'+'+e.coins+' 🪙':'0 🪙';
- $('rewardXP').textContent=win?'+'+e.xp+' XP':'0 XP';
- $('resultStats').textContent='Удары: '+b.attacks+' · Уклонения: '+b.dodges+' · Пропущено ударов: '+b.enemyHits+(win?' · Побед: '+state.wins:'');
- $('resultNext').textContent=win&&mode==='story'?'Следующая глава':win&&mode==='survival'?'Следующая волна':'Следующий бой';
- message(win?'🏆 Победа! Награда зачислена.':'Поражение. Попробуй снова.');
- showBattle();$('result').hidden=false;
-}
-function frame(time){
- raf=requestAnimationFrame(frame);
- if(activeTab!=='arena'||!battle?.playing){lastFrame=time;return}
- const dt=clamp((time-(lastFrame||time))/1000,0,.055);lastFrame=time;
- const b=battle,e=currentEnemy(),w=bounds();
- if(held)b.px=clamp(b.px+held*185*dt,0,w-115);
- if(time>b.frozenUntil){
-  const target=b.px+105,gap=target-b.ex;
-  // Distinct AI: drone chases, raider circles, titan is slow/heavy, void boss rushes.
-  let targetGap=e.id==='raider'?118:e.id==='void'?48:65;
-  if(e.id==='raider'&&time>b.enemySidestepAt){b.enemyStrafeDir*=-1;b.enemySidestepAt=time+1450;b.enemyStrafeUntil=time+600}
-  if(!b.enemyPending){
-   if(Math.abs(gap)>targetGap){b.ex=clamp(b.ex+Math.sign(gap)*e.speed*(e.id==='void'?1.25:1)*dt,35,w-73)}
-   else if(e.id==='raider'&&time<b.enemyStrafeUntil)b.ex=clamp(b.ex+b.enemyStrafeDir*e.speed*.9*dt,35,w-73);
-  }
-  const reach=e.id==='raider'?155:105;
-  if(Math.abs(gap)<reach&&time>=b.enemyHitAt&&!b.enemyPending){
-    b.enemyPending=true;b.enemyWindup=time+(e.id==='titan'?780:e.id==='void'?400:580);
-    $('opponent').classList.add('telegraph');message('🔴 '+e.name+' готовит атаку! Уклоняйся!');
-  }
-  if(b.enemyPending&&time>=b.enemyWindup){
-   b.enemyPending=false;b.enemyWindup=0;$('opponent').classList.remove('telegraph');
-   b.enemyHitAt=time+(e.id==='void'?950:e.id==='titan'?1750:1400)+Math.random()*250;
-   animateOne('opponent','attack');
-   // Re-check range after the warning: moving away can dodge as well.
-   if(Math.abs((b.px+105)-b.ex)>reach+16){message('✨ Противник промахнулся!')}
-   else if(time<=b.invulnerableUntil){message('💨 Идеальное уклонение!')}
-   else{
-    const damage=e.damage+(e.id==='titan'?4:0)+Math.floor(Math.random()*5);
-    b.hp=Math.max(0,b.hp-damage);b.enemyHits++;
-    animateOne('battleAvatar','hurt');floating('hurtNumber','−'+damage);
-    message(e.icon+' Получено −'+damage+' HP');if(b.hp<=0)endBattle(false)
-   }
-  }
- }
- showBattle();
- for(const [id,at] of [['fireCD',b.fireAt],['iceCD',b.iceAt],['powerCD',b.powerAt]])$(id).textContent=at>time?((at-time)/1000).toFixed(1)+' сек':'Готово';
- $('dodge').style.opacity=b.dodgeAt>time?'.6':'1';
- if(b.combo&&time>b.comboUntil){b.combo=0;$('combatTip').textContent='⚔️ Комбо: 0 / 3 · Жди подсказки врага'}
-}
-function renderEnemyButtons(){const root=$('enemyPick');root.replaceChildren();enemies.forEach((e,i)=>{const btn=document.createElement('button');btn.textContent=e.icon+' '+e.name;btn.className=i===enemyIndex?'active':'';btn.onclick=()=>{enemyIndex=i;renderEnemyButtons();createBattle()};root.append(btn)})}
-function bindHold(id,dir){const btn=$(id);btn.addEventListener('pointerdown',ev=>{ev.preventDefault();btn.setPointerCapture?.(ev.pointerId);held=dir});const stop=()=>{if(held===dir)held=0};btn.addEventListener('pointerup',stop);btn.addEventListener('pointercancel',stop);btn.addEventListener('lostpointercapture',stop)}bindHold('moveLeft',-1);bindHold('moveRight',1);
-$('attack').onclick=attack;$('dodge').onclick=dodge;$('fire').onclick=()=>ability('fire');$('ice').onclick=()=>ability('ice');$('power').onclick=()=>ability('power');$('newBattle').onclick=()=>{if(mode==='survival'&&!battle?.playing&&battle?.hp<=0)wave=1;showMode();createBattle()};$('heal').onclick=()=>{if(!battle?.playing||battle.healUsed)return;battle.healUsed=true;battle.hp=Math.min(100,battle.hp+25);message('💚 Восстановлено до 25 HP');showBattle()};$('resultNext').onclick=()=>{if(mode==='survival'&&battle?.hp<=0)wave=1;showMode();createBattle()};$('resultClose').onclick=()=>$('result').hidden=true;
-$('battlefield').addEventListener('pointerdown',ev=>{if(ev.target.closest('button'))return});
-document.querySelectorAll('.tab').forEach(btn=>btn.onclick=()=>{activeTab=btn.dataset.tab;held=0;document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b===btn));document.querySelectorAll('.panel').forEach(s=>s.hidden=s.id!==activeTab);if(activeTab==='arena'&&!battle)createBattle();window.scrollTo(0,0)});
-document.addEventListener('visibilitychange',()=>{if(document.hidden){held=0;lastFrame=0}});
-document.querySelectorAll('[data-mode]').forEach(btn=>btn.addEventListener('click',()=>{mode=btn.dataset.mode;if(mode==='survival')wave=1;showMode();createBattle()}));
-render();renderEnemyButtons();showMode();requestAnimationFrame(frame);
-</script></body></html>
+function resize(){const w=window.innerWidth,h=window.innerHeight;camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h);renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.7))}
+window.addEventListener('resize',resize);window.addEventListener('orientationchange',()=>setTimeout(resize,250));
+try{wins=Number(localStorage.getItem('skinforge_3d_demo_v20'))||0}catch{}
+ui();camera.position.set(0,4,14);$('loading').hidden=true;requestAnimationFrame(tick);
+</script>
+</body></html>
